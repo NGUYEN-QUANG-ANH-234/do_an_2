@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Kiểm Kê Kho - Mina Rubber</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
+  </head>
+  <body class="bg-slate-50 text-slate-800">
+    <div class="flex min-h-screen">
+      <aside class="w-64 bg-slate-900 text-slate-300 flex-shrink-0"></aside>
+
+      <main class="flex-1 flex flex-col">
+        <header
+          class="h-16 bg-white shadow-sm flex items-center justify-between px-8 relative z-10"
+        >
+          <h2
+            class="text-lg font-black text-slate-700 uppercase italic tracking-tighter"
+          >
+            Kiểm Kê Định Kỳ
+          </h2>
+
+          <div id="headerUserContainer"></div>
+        </header>
+
+        <div class="p-8">
+          <div
+            class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 mb-8"
+          >
+            <div class="flex justify-between items-center mb-6">
+              <h3 class="font-black text-slate-700 uppercase italic">
+                Danh sách kiểm hàng
+              </h3>
+              <button
+                onclick="saveStockCheck()"
+                class="px-6 py-3 bg-slate-900 text-white rounded-xl font-black uppercase italic text-xs hover:bg-blue-600 transition-all shadow-lg"
+              >
+                <i class="fas fa-save mr-2"></i> Lưu kết quả kiểm kê
+              </button>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left">
+                <thead>
+                  <tr
+                    class="bg-slate-50 text-[10px] uppercase font-black text-slate-400 border-b border-slate-100"
+                  >
+                    <th class="px-6 py-4">Sản phẩm</th>
+                    <th class="px-6 py-4 text-center">Tồn hệ thống</th>
+                    <th class="px-6 py-4 text-center">Tồn thực tế</th>
+                    <th class="px-6 py-4 text-center">Chênh lệch</th>
+                    <th class="px-6 py-4">Ghi chú xử lý</th>
+                  </tr>
+                </thead>
+                <tbody id="stockCheckTableBody" class="text-sm"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div
+            class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden"
+          >
+            <div
+              class="p-6 border-b border-slate-50 font-black text-slate-700 uppercase italic text-sm"
+            >
+              Lịch sử kiểm kê gần đây
+            </div>
+            <div id="stockCheckHistory" class="p-6 space-y-4"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/warehouse/warehouse_stock-check.js"></script>
+  </body>
+</html>

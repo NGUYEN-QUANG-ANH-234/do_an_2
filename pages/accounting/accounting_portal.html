@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trung tâm Thanh toán & Hóa đơn - Mina Rubber</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .finance-card {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .finance-card:hover {
+        transform: translateY(-5px);
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 min-h-screen flex custom-scrollbar">
+    <aside
+      id="sidebarContainer"
+      class="w-64 bg-slate-900 text-slate-300 flex-shrink-0 min-h-screen"
+    ></aside>
+
+    <main class="flex-1 flex flex-col overflow-hidden">
+      <header
+        class="h-20 bg-white shadow-sm flex items-center justify-between px-10 relative z-10 border-b border-slate-100"
+      >
+        <div class="flex items-center space-x-3">
+          <div
+            class="w-10 h-10 bg-slate-900 rounded-xl flex items-center justify-center text-white shadow-lg"
+          >
+            <i class="fas fa-file-invoice-dollar"></i>
+          </div>
+          <div>
+            <h2
+              class="text-lg font-black text-slate-800 uppercase italic tracking-tighter leading-none"
+            >
+              Phân hệ Tài chính
+            </h2>
+            <p
+              class="text-[10px] text-slate-400 font-bold uppercase mt-1 tracking-widest"
+            >
+              Quản lý Hóa đơn & Nợ phải thu
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <button
+            onclick="window.location.href='../payment/payment_history.html'"
+            class="px-5 py-2.5 text-[11px] font-black text-slate-600 bg-slate-100 rounded-2xl hover:bg-slate-200 transition-all flex items-center"
+          >
+            <i class="fas fa-history mr-2 text-blue-500"></i> LỊCH SỬ GIAO DỊCH
+          </button>
+          <div id="headerUserContainer"></div>
+        </div>
+      </header>
+
+      <div class="p-10 h-[calc(100vh-80px)] overflow-y-auto custom-scrollbar">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-10">
+          <div
+            class="finance-card bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm relative overflow-hidden"
+          >
+            <p
+              class="text-[9px] font-black text-slate-400 uppercase italic mb-2 tracking-widest"
+            >
+              Doanh thu (Gross)
+            </p>
+            <h3
+              id="totalRevenue"
+              class="text-xl font-black text-slate-900 leading-none"
+            >
+              0đ
+            </h3>
+            <div class="absolute -right-3 -bottom-3 opacity-5 text-5xl">
+              <i class="fas fa-chart-line text-blue-600"></i>
+            </div>
+          </div>
+
+          <div
+            class="finance-card bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm relative overflow-hidden"
+          >
+            <p
+              class="text-[9px] font-black text-slate-400 uppercase italic mb-2 tracking-widest"
+            >
+              Giá vốn (COGS)
+            </p>
+            <h3
+              id="totalCOGS"
+              class="text-xl font-black text-slate-700 leading-none"
+            >
+              0đ
+            </h3>
+            <div class="absolute -right-3 -bottom-3 opacity-5 text-5xl">
+              <i class="fas fa-warehouse"></i>
+            </div>
+          </div>
+
+          <div
+            class="finance-card bg-orange-50 p-6 rounded-[32px] border border-orange-100 shadow-sm relative overflow-hidden group"
+          >
+            <div class="relative z-10">
+              <p
+                class="text-[9px] font-black text-orange-500 uppercase italic mb-2 tracking-widest"
+              >
+                Nợ phải thu (AR)
+              </p>
+              <h3
+                id="totalReceivables"
+                class="text-xl font-black text-orange-600 leading-none"
+              >
+                0đ
+              </h3>
+            </div>
+            <i
+              class="fas fa-file-invoice absolute -right-2 -bottom-2 opacity-10 text-5xl group-hover:scale-110 transition-transform"
+            ></i>
+          </div>
+
+          <div
+            class="finance-card bg-white p-6 rounded-[32px] border border-slate-100 shadow-sm relative overflow-hidden text-red-500"
+          >
+            <p
+              class="text-[9px] font-black text-slate-400 uppercase italic mb-2 tracking-widest"
+            >
+              Phí vận chuyển
+            </p>
+            <h3 id="totalShipping" class="text-xl font-black leading-none">
+              0đ
+            </h3>
+            <div class="absolute -right-3 -bottom-3 opacity-5 text-5xl">
+              <i class="fas fa-truck-loading"></i>
+            </div>
+          </div>
+
+          <div
+            class="finance-card bg-green-600 p-6 rounded-[32px] text-white shadow-xl relative overflow-hidden"
+          >
+            <p
+              class="text-[9px] font-black uppercase opacity-60 italic mb-2 tracking-widest"
+            >
+              Lợi nhuận (Net)
+            </p>
+            <h3 id="totalProfit" class="text-xl font-black leading-none">0đ</h3>
+            <div class="absolute -right-3 -bottom-3 opacity-20 text-5xl">
+              <i class="fas fa-sack-dollar"></i>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="bg-white rounded-[48px] shadow-sm border border-slate-100 overflow-hidden"
+        >
+          <div
+            class="px-10 py-8 border-b border-slate-50 bg-slate-50/30 flex justify-between items-center"
+          >
+            <div>
+              <h3
+                class="text-sm font-black uppercase text-slate-800 italic tracking-widest"
+              >
+                Tra cứu Vận đơn & Công nợ
+              </h3>
+              <p
+                class="text-[10px] text-slate-400 font-bold mt-1 italic uppercase"
+              >
+                Quản lý trạng thái dòng tiền thực tế
+              </p>
+            </div>
+            <div class="flex bg-white p-1 rounded-2xl border border-slate-200">
+              <input
+                type="text"
+                id="invoiceSearch"
+                placeholder="Mã đơn / Tên đại lý..."
+                class="px-4 py-2 text-xs font-bold outline-none w-64"
+              />
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr
+                  class="bg-slate-50/50 text-[10px] font-black uppercase text-slate-400 tracking-[0.2em]"
+                >
+                  <th class="px-10 py-6">Mã Hóa đơn</th>
+                  <th class="px-10 py-6">Đại lý</th>
+                  <th class="px-10 py-6 text-center">
+                    Cơ cấu nợ (Hàng + Ship)
+                  </th>
+                  <th class="px-10 py-6">Trạng thái thu hồi</th>
+                </tr>
+              </thead>
+              <tbody
+                id="invoiceTableBody"
+                class="divide-y divide-slate-50"
+              ></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/accounting/accounting_portal.js"></script>
+  </body>
+</html>

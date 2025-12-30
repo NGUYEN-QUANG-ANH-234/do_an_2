@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lịch sử Vận tải - Mina Rubber</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #e2e8f0;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 min-h-screen flex custom-scrollbar">
+    <aside
+      class="w-64 bg-slate-900 text-slate-300 flex-shrink-0 min-h-screen"
+    ></aside>
+
+    <main class="flex-1 flex flex-col">
+      <header
+        class="h-16 bg-white shadow-sm flex items-center justify-between px-8 relative z-10"
+      >
+        <div class="flex items-center">
+          <h2
+            class="text-lg font-black text-slate-700 uppercase italic tracking-tighter"
+          >
+            Nhật ký hành trình & KPIs
+          </h2>
+        </div>
+
+        <div class="flex items-center space-x-6">
+          <a
+            href="transport_portal.html"
+            class="flex items-center px-4 py-2 text-sm font-bold text-slate-600 hover:text-blue-600 bg-slate-50 border border-slate-200 rounded-xl transition-all shadow-sm"
+          >
+            <i class="fas fa-arrow-left me-2"></i> Điều phối xe
+          </a>
+          <div id="headerUserContainer"></div>
+        </div>
+      </header>
+
+      <div class="p-8">
+        <p class="text-slate-500 text-xs mb-6 italic">
+          Tổng hợp dữ liệu các chuyến hàng đã hoàn tất và đánh giá hiệu suất vận
+          chuyển.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 text-sans">
+          <div
+            class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4"
+          >
+            <div
+              class="w-12 h-12 bg-green-50 text-green-600 rounded-xl flex items-center justify-center text-xl"
+            >
+              <i class="fas fa-check-double"></i>
+            </div>
+            <div>
+              <p
+                class="text-[10px] font-black text-slate-400 uppercase tracking-widest"
+              >
+                Đơn hoàn thành
+              </p>
+              <h3
+                id="totalDeliveredCount"
+                class="text-2xl font-black text-slate-900 italic"
+              >
+                0
+              </h3>
+            </div>
+          </div>
+          <div
+            class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4"
+          >
+            <div
+              class="w-12 h-12 bg-blue-50 text-blue-500 rounded-xl flex items-center justify-center text-xl"
+            >
+              <i class="fas fa-box"></i>
+            </div>
+            <div>
+              <p
+                class="text-[10px] font-black text-slate-400 uppercase tracking-widest"
+              >
+                Sản lượng đã giao
+              </p>
+              <h3
+                id="totalItemsCount"
+                class="text-2xl font-black text-slate-900 italic"
+              >
+                0
+              </h3>
+            </div>
+          </div>
+          <div
+            class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4"
+          >
+            <div
+              class="w-12 h-12 bg-indigo-50 text-indigo-500 rounded-xl flex items-center justify-center text-xl"
+            >
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div>
+              <p
+                class="text-[10px] font-black text-slate-400 uppercase tracking-widest"
+              >
+                Tỷ lệ mục tiêu (BSC)
+              </p>
+              <h3
+                id="completionRate"
+                class="text-2xl font-black text-blue-600 italic"
+              >
+                0%
+              </h3>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-6"
+        >
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="relative">
+              <label
+                class="block text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest"
+                >Tìm kiếm lịch sử</label
+              >
+              <div class="relative">
+                <i
+                  class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-300 text-xs"
+                ></i>
+                <input
+                  type="text"
+                  id="searchHistory"
+                  placeholder="Mã đơn hoặc đại lý..."
+                  class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 font-semibold text-slate-700 text-sm transition-all"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label
+                class="block text-[10px] font-bold text-slate-400 uppercase mb-2 tracking-widest"
+                >Lọc Đơn vị vận tải</label
+              >
+              <select
+                id="partnerFilter"
+                class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 font-semibold text-slate-700 text-sm transition-all"
+              >
+                <option value="">Tất cả đơn vị</option>
+                <option value="PARTNER-01">Đội xe Mina Hà Nội</option>
+                <option value="PARTNER-02">Giao Hàng Nhanh (GHN)</option>
+                <option value="PARTNER-03">Viettel Post</option>
+              </select>
+            </div>
+
+            <div class="flex items-end space-x-3">
+              <button
+                onclick="location.reload()"
+                class="flex-1 px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-xl font-bold text-xs transition-all flex items-center justify-center"
+              >
+                <i class="fas fa-sync-alt me-2"></i> Làm mới
+              </button>
+              <button
+                onclick="exportTransportReport()"
+                class="flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs transition-all flex items-center justify-center shadow-lg shadow-blue-100"
+              >
+                <i class="fas fa-file-export me-2"></i> Xuất Báo cáo
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="bg-white shadow-xl rounded-2xl overflow-hidden border border-slate-200"
+        >
+          <table class="w-full text-left">
+            <thead
+              class="bg-slate-800 text-slate-200 text-[11px] uppercase tracking-widest font-bold"
+            >
+              <tr>
+                <th class="px-6 py-5">Vận đơn</th>
+                <th class="px-6 py-5">Đại lý nhận</th>
+                <th class="px-6 py-5">Sản phẩm & SL</th>
+                <th class="px-6 py-5">Đơn vị vận chuyển</th>
+                <th class="px-6 py-5">Hành trình thời gian</th>
+                <th class="px-6 py-5 text-right">Trạng thái</th>
+              </tr>
+            </thead>
+            <tbody
+              id="historyBody"
+              class="divide-y divide-slate-100 text-sm italic"
+            >
+              <tr>
+                <td
+                  colspan="6"
+                  class="px-6 py-10 text-center text-slate-300 italic"
+                >
+                  Đang tải lịch sử giao hàng...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../js/main.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/modules/transport/transport_history.js"></script>
+  </body>
+</html>

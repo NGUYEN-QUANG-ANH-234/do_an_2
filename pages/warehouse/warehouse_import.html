@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Nhập Kho - Mina Rubber</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
+  </head>
+  <body class="bg-slate-50 text-slate-800">
+    <div class="flex min-h-screen">
+      <aside class="w-64 bg-slate-900 text-slate-300 flex-shrink-0"></aside>
+
+      <main class="flex-1 flex flex-col">
+        <header
+          class="h-16 bg-white shadow-sm flex items-center justify-between px-8 relative z-10"
+        >
+          <h2
+            class="text-lg font-black text-slate-700 uppercase italic tracking-tighter"
+          >
+            Nhập Hàng Vào Kho
+          </h2>
+
+          <div id="headerUserContainer"></div>
+        </header>
+
+        <div class="p-8 max-w-4xl">
+          <div
+            class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden"
+          >
+            <div class="p-6 border-b border-slate-50 bg-slate-50/50">
+              <h3 class="font-black text-slate-700 uppercase italic">
+                Phiếu nhập kho mới
+              </h3>
+            </div>
+
+            <form id="importForm" class="p-8 space-y-6">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label
+                    class="block text-xs font-black uppercase text-slate-500 mb-2 italic"
+                    >Sản phẩm nhập</label
+                  >
+                  <select
+                    id="productSelect"
+                    required
+                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none font-bold"
+                  >
+                    <option value="">-- Chọn sản phẩm --</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label
+                    class="block text-xs font-black uppercase text-slate-500 mb-2 italic"
+                    >Số lượng nhập</label
+                  >
+                  <input
+                    type="number"
+                    id="importQty"
+                    min="1"
+                    required
+                    placeholder="Ví dụ: 100"
+                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none font-bold"
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label
+                    class="block text-xs font-black uppercase text-slate-500 mb-2 italic"
+                    >Nguồn nhập hàng</label
+                  >
+                  <input
+                    type="text"
+                    id="importSource"
+                    placeholder="Tên nhà máy / Đối tác"
+                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none font-bold"
+                  />
+                </div>
+                <div>
+                  <label
+                    class="block text-xs font-black uppercase text-slate-500 mb-2 italic"
+                    >Ghi chú phiếu nhập</label
+                  >
+                  <input
+                    type="text"
+                    id="importNote"
+                    placeholder="Lô hàng tháng 12..."
+                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none font-bold"
+                  />
+                </div>
+              </div>
+
+              <div class="pt-4 flex justify-end space-x-4">
+                <button
+                  type="reset"
+                  class="px-6 py-3 border border-slate-200 rounded-xl font-bold hover:bg-slate-50 transition-all"
+                >
+                  Hủy bỏ
+                </button>
+                <button
+                  type="submit"
+                  class="px-8 py-3 bg-slate-900 text-white rounded-xl font-black uppercase italic hover:bg-blue-600 transition-all shadow-lg"
+                >
+                  <i class="fas fa-plus mr-2"></i> Xác nhận nhập kho
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <div
+            class="mt-10 bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden"
+          >
+            <div
+              class="p-6 border-b border-slate-50 font-black text-slate-700 uppercase italic text-sm"
+            >
+              Nhật ký nhập kho gần đây
+            </div>
+            <table class="w-full text-left">
+              <thead
+                class="bg-slate-50 text-[10px] uppercase font-black text-slate-400"
+              >
+                <tr>
+                  <th class="px-6 py-3">Thời gian</th>
+                  <th class="px-6 py-3">Sản phẩm</th>
+                  <th class="px-6 py-3">Số lượng</th>
+                  <th class="px-6 py-3">Nguồn</th>
+                </tr>
+              </thead>
+              <tbody id="importHistoryTable" class="text-sm"></tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/warehouse/warehouse_import.js"></script>
+  </body>
+</html>

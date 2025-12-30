@@ -1,0 +1,146 @@
+<div
+  class="p-6 text-white text-xl font-bold border-b border-slate-800 tracking-tighter italic"
+>
+  MINA RUBBER
+</div>
+
+<nav class="mt-6 space-y-1 px-3 flex-1 overflow-y-auto" id="sidebarNav">
+  <a
+    href="#"
+    id="btnOverview"
+    data-role="ADMIN,MANAGER,ACCOUNTANT,WAREHOUSE,TRANSPORT,AGENCY"
+    class="flex items-center px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition-all text-sm font-bold italic group"
+  >
+    <i
+      class="fas fa-chart-line w-6 text-blue-400 group-hover:scale-110 transition-transform"
+    ></i>
+    <span>Tổng quan</span>
+  </a>
+
+  <div
+    data-role="ADMIN,MANAGER"
+    class="pt-4 pb-2 px-4 text-[10px] font-black text-slate-500 uppercase tracking-widest"
+  >
+    Hệ thống đối tác
+  </div>
+  <a
+    href="/pages/agency/agency_list.html"
+    data-role="ADMIN,MANAGER"
+    class="flex items-center px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition-all text-sm font-bold italic group"
+  >
+    <i
+      class="fas fa-users w-6 text-blue-400 group-hover:scale-110 transition-transform"
+    ></i>
+    <span>Quản lý Đại lý</span>
+  </a>
+  <a
+    href="/pages/agency/agency_portal.html"
+    data-role="ADMIN,MANAGER,AGENCY"
+    class="flex items-center px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition-all text-sm font-bold italic group"
+  >
+    <i
+      class="fas fa-file-signature w-6 text-teal-400 group-hover:scale-110 transition-transform"
+    ></i>
+    <span>Hợp đồng & Nhật ký</span>
+  </a>
+
+  <div
+    data-role="ADMIN,MANAGER,ACCOUNTANT,AGENCY"
+    class="pt-4 pb-2 px-4 text-[10px] font-black text-slate-500 uppercase tracking-widest text-slate-400"
+  >
+    Danh mục
+  </div>
+  <a
+    href="/pages/product/product_list.html"
+    data-role="ADMIN,MANAGER,ACCOUNTANT,AGENCY"
+    class="flex items-center px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition-all text-sm font-bold italic group"
+  >
+    <i
+      class="fas fa-tags w-6 text-orange-400 group-hover:scale-110 transition-transform"
+    ></i>
+    <span>Sản phẩm & Giá</span>
+  </a>
+
+  <div
+    data-role="ADMIN,ACCOUNTANT,WAREHOUSE,AGENCY"
+    class="pt-4 pb-2 px-4 text-[10px] font-black text-slate-500 uppercase tracking-widest text-slate-400"
+  >
+    Giao dịch
+  </div>
+  <a
+    href="/pages/order/order_portal.html"
+    data-role="ADMIN,ACCOUNTANT,WAREHOUSE,AGENCY"
+    class="flex items-center px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition-all text-sm font-bold italic group"
+  >
+    <i
+      class="fas fa-shopping-cart w-6 text-red-400 group-hover:scale-110 transition-transform"
+    ></i>
+    <span>Quản lý Đơn hàng</span>
+  </a>
+
+  <a
+    href="/pages/invoice/invoice_portal.html"
+    data-role="ADMIN,ACCOUNTANT,AGENCY"
+    class="flex items-center px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition-all text-sm font-bold italic group"
+  >
+    <i
+      class="fas fa-file-invoice w-6 text-amber-400 group-hover:scale-110 transition-transform"
+    ></i>
+    <span>Quản lý Hóa đơn</span>
+  </a>
+
+  <a
+    href="/pages/payment/payment_portal.html"
+    data-role="ADMIN,ACCOUNTANT,AGENCY"
+    class="flex items-center px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition-all text-sm font-bold italic group"
+  >
+    <i
+      class="fas fa-wallet w-6 text-green-400 group-hover:scale-110 transition-transform"
+    ></i>
+    <span>Thanh toán</span>
+  </a>
+
+  <div
+    data-role="ADMIN,WAREHOUSE"
+    class="pt-4 pb-2 px-4 text-[10px] font-black text-slate-500 uppercase tracking-widest text-slate-400"
+  >
+    Lưu trữ
+  </div>
+  <a
+    href="/pages/warehouse/warehouse_portal.html"
+    data-role="ADMIN,WAREHOUSE"
+    class="flex items-center px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition-all text-sm font-bold italic group"
+  >
+    <i
+      class="fas fa-warehouse w-6 text-yellow-400 group-hover:scale-110 transition-transform"
+    ></i>
+    <span>Quản lý Kho</span>
+  </a>
+
+  <div
+    data-role="ADMIN,TRANSPORT,ACCOUNTANT,AGENCY"
+    class="pt-4 pb-2 px-4 text-[10px] font-black text-slate-500 uppercase tracking-widest text-slate-400"
+  >
+    Nghiệp vụ cuối
+  </div>
+  <a
+    href="/pages/transport/transport_portal.html"
+    data-role="ADMIN,TRANSPORT,WAREHOUSE"
+    class="flex items-center px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition-all text-sm font-bold italic group"
+  >
+    <i
+      class="fas fa-truck w-6 text-cyan-400 group-hover:scale-110 transition-transform"
+    ></i>
+    <span>Vận chuyển</span>
+  </a>
+  <a
+    href="/pages/accounting/accounting_portal.html"
+    data-role="ADMIN,ACCOUNTANT"
+    class="flex items-center px-4 py-3 hover:bg-slate-800 hover:text-white rounded-xl transition-all text-sm font-bold italic group"
+  >
+    <i
+      class="fas fa-calculator w-6 text-purple-400 group-hover:scale-110 transition-transform"
+    ></i>
+    <span>Kế toán</span>
+  </a>
+</nav>

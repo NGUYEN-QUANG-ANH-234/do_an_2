@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cổng Thanh toán & Lựa chọn Giao dịch - Mina Rubber</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .payment-card {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .payment-card:hover {
+        transform: translateY(-5px);
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 min-h-screen flex custom-scrollbar">
+    <aside
+      id="sidebarContainer"
+      class="w-64 bg-slate-900 text-slate-300 flex-shrink-0 min-h-screen"
+    ></aside>
+
+    <main class="flex-1 flex flex-col overflow-hidden">
+      <header
+        class="h-20 bg-white shadow-sm flex items-center justify-between px-10 border-b border-slate-100 relative z-10"
+      >
+        <div class="flex items-center space-x-3">
+          <div
+            class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg"
+          >
+            <i class="fas fa-cash-register"></i>
+          </div>
+          <div>
+            <h2
+              class="text-lg font-black text-slate-800 uppercase italic tracking-tighter leading-none"
+            >
+              Cổng Thanh toán
+            </h2>
+            <p
+              class="text-[10px] text-slate-400 font-bold uppercase mt-1 tracking-widest"
+            >
+              Lựa chọn luồng tiền & Ghi nợ
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <button
+            onclick="window.location.href='payment_history.html'"
+            class="px-5 py-2.5 text-[11px] font-black text-slate-600 bg-slate-100 rounded-2xl hover:bg-slate-900 hover:text-white transition-all flex items-center uppercase italic"
+          >
+            <i class="fas fa-history mr-2 text-indigo-500"></i> Lịch sử giao
+            dịch
+          </button>
+
+          <div id="headerUserContainer"></div>
+        </div>
+      </header>
+
+      <div class="p-10 h-[calc(100vh-80px)] overflow-y-auto custom-scrollbar">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+          <div
+            class="payment-card bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm relative overflow-hidden"
+          >
+            <p
+              class="text-[10px] font-black text-slate-400 uppercase italic mb-2 tracking-widest"
+            >
+              Ví Trả trước (Pool)
+            </p>
+            <h3
+              id="walletPool"
+              class="text-2xl font-black text-indigo-600 leading-none"
+            >
+              0đ
+            </h3>
+            <div class="absolute -right-4 -bottom-4 opacity-5 text-7xl">
+              <i class="fas fa-wallet text-indigo-600"></i>
+            </div>
+          </div>
+
+          <div
+            class="payment-card bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm relative overflow-hidden"
+          >
+            <p
+              class="text-[10px] font-black text-slate-400 uppercase italic mb-2 tracking-widest"
+            >
+              Công nợ Trả sau (Debt)
+            </p>
+            <h3
+              id="debtPool"
+              class="text-2xl font-black text-orange-600 leading-none"
+            >
+              0đ
+            </h3>
+            <div class="absolute -right-4 -bottom-4 opacity-5 text-7xl">
+              <i class="fas fa-file-invoice-dollar text-orange-600"></i>
+            </div>
+          </div>
+
+          <div
+            class="payment-card bg-slate-900 p-8 rounded-[40px] text-white shadow-xl relative overflow-hidden"
+          >
+            <p
+              class="text-[10px] font-black uppercase opacity-60 italic mb-2 tracking-widest"
+            >
+              Vận đơn chờ xử lý tiền
+            </p>
+            <h3
+              id="pendingCount"
+              class="text-2xl font-black leading-none text-white"
+            >
+              0 đơn
+            </h3>
+            <div class="absolute -right-4 -bottom-4 opacity-10 text-7xl">
+              <i class="fas fa-clock"></i>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="bg-white rounded-[48px] shadow-sm border border-slate-100 overflow-hidden"
+        >
+          <div
+            class="px-10 py-8 border-b border-slate-50 bg-slate-50/30 flex justify-between items-center"
+          >
+            <div>
+              <h3
+                class="text-sm font-black uppercase text-slate-800 italic tracking-widest"
+              >
+                Phê duyệt Luồng Tiền Vận Đơn
+              </h3>
+              <p
+                class="text-[10px] text-slate-400 font-bold mt-1 italic uppercase"
+              >
+                Chỉ hiển thị các đơn hàng đã bàn giao thành công
+              </p>
+            </div>
+            <div class="flex gap-3">
+              <button
+                onclick="window.location.href='payment_prepayment.html'"
+                class="px-4 py-2 bg-indigo-50 text-indigo-600 text-[9px] font-black uppercase rounded-xl border border-indigo-100 hover:bg-indigo-600 hover:text-white transition-all"
+              >
+                <i class="fas fa-plus mr-1"></i> Nạp Quỹ Trả Trước
+              </button>
+              <button
+                onclick="window.location.href='payment_postpayment.html'"
+                class="px-4 py-2 bg-orange-50 text-orange-600 text-[9px] font-black uppercase rounded-xl border border-orange-100 hover:bg-orange-600 hover:text-white transition-all"
+              >
+                <i class="fas fa-book mr-1"></i> Sổ nợ Trả Sau
+              </button>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr
+                  class="bg-slate-50/50 text-[10px] font-black uppercase text-slate-400 tracking-[0.2em]"
+                >
+                  <th class="px-10 py-6">Mã Vận Đơn</th>
+                  <th class="px-10 py-6">Đối Tác Đại Lý</th>
+                  <th class="px-10 py-6 text-center">Tổng Thu (Hàng + Ship)</th>
+                  <th class="px-10 py-6">Lựa Chọn Thanh Toán</th>
+                  <th class="px-10 py-6 text-right">Hoàn Tất</th>
+                </tr>
+              </thead>
+              <tbody
+                id="paymentActionBody"
+                class="divide-y divide-slate-50"
+              ></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/payment/payment_portal.js"></script>
+  </body>
+</html>

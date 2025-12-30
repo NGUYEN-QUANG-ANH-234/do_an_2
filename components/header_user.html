@@ -1,0 +1,39 @@
+<div class="flex items-center gap-4">
+  <div class="text-right hidden sm:block">
+    <p id="headerUserName" class="font-bold text-slate-700 text-sm italic">
+      Đang tải...
+    </p>
+    <p
+      id="headerUserRole"
+      class="text-[9px] text-blue-600 font-black uppercase tracking-widest bg-blue-50 px-2 py-0.5 rounded italic"
+    >
+      Vai trò
+    </p>
+  </div>
+
+  <div class="relative group py-2">
+    <button
+      id="userInitials"
+      class="w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center text-white font-black border border-slate-200 hover:bg-blue-600 transition-all shadow-sm uppercase italic"
+    >
+      ?
+    </button>
+    <div
+      class="absolute right-0 top-[100%] mt-1 w-48 bg-white rounded-2xl shadow-xl border border-slate-100 hidden group-hover:block z-50 overflow-hidden font-bold"
+    >
+      <a
+        href="/pages/auth/auth_change_pw.html"
+        class="flex items-center px-4 py-3 text-xs text-slate-600 hover:bg-blue-50 transition-all"
+      >
+        <i class="fas fa-key w-5 text-blue-500"></i> Đổi mật khẩu
+      </a>
+      <div class="h-px bg-slate-50"></div>
+      <button
+        id="btnLogout"
+        class="w-full flex items-center px-4 py-3 text-xs text-red-500 hover:bg-red-50 transition-all text-left uppercase italic"
+      >
+        <i class="fas fa-sign-out-alt w-5"></i> Đăng xuất
+      </button>
+    </div>
+  </div>
+</div>

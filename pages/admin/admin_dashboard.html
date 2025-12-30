@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hệ thống Quản trị - Mina Rubber</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
+  </head>
+  <body class="bg-slate-50 text-slate-800">
+    <div class="flex min-h-screen">
+      <aside
+        id="sidebarContainer"
+        class="w-64 bg-slate-900 text-slate-300 flex-shrink-0 hidden lg:flex flex-col"
+      ></aside>
+
+      <main class="flex-1 flex flex-col h-screen overflow-hidden">
+        <header
+          class="h-16 bg-white shadow-sm flex items-center justify-between px-8 shrink-0 z-10 border-b"
+        >
+          <h2
+            class="text-lg font-black text-slate-700 uppercase italic tracking-tighter"
+          >
+            Bảng điều khiển hệ thống
+          </h2>
+          <div class="flex items-center gap-4">
+            <button
+              onclick="window.location.href='admin_create_agency.html'"
+              class="bg-blue-600 hover:bg-slate-900 text-white px-5 py-2 rounded-xl flex items-center shadow-lg transition-all font-bold text-xs uppercase italic tracking-wider"
+            >
+              <i class="fas fa-plus-circle me-2"></i> Thiết lập Đối tác mới
+            </button>
+            <div id="headerUserContainer"></div>
+          </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-8 custom-scrollbar">
+          <div class="mb-8">
+            <h1 class="text-3xl font-black text-slate-900 italic uppercase">
+              Tổng quan vận hành
+            </h1>
+            <p
+              class="text-slate-500 text-[10px] font-bold uppercase tracking-[0.3em] mt-1"
+            >
+              Dữ liệu thời gian thực từ Mina Rubber
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div
+              class="bg-white p-6 rounded-3xl shadow-sm border-t-4 border-blue-500"
+            >
+              <p
+                class="text-[10px] text-slate-400 font-black uppercase tracking-widest"
+              >
+                Tổng đại lý
+              </p>
+              <p
+                id="statTotalAgencies"
+                class="text-4xl font-black mt-2 tracking-tighter text-slate-900"
+              >
+                0
+              </p>
+            </div>
+            <div
+              class="bg-white p-6 rounded-3xl shadow-sm border-t-4 border-emerald-500"
+            >
+              <p
+                class="text-[10px] text-slate-400 font-black uppercase tracking-widest"
+              >
+                Đơn hàng mới
+              </p>
+              <p
+                id="statTotalOrders"
+                class="text-4xl font-black mt-2 tracking-tighter text-slate-900"
+              >
+                0
+              </p>
+            </div>
+            <div
+              class="bg-white p-6 rounded-3xl shadow-sm border-t-4 border-orange-500"
+            >
+              <p
+                class="text-[10px] text-slate-400 font-black uppercase tracking-widest"
+              >
+                Hợp đồng chờ duyệt
+              </p>
+              <p
+                id="statPendingContracts"
+                class="text-4xl font-black mt-2 tracking-tighter text-slate-900"
+              >
+                0
+              </p>
+            </div>
+            <div
+              class="bg-white p-6 rounded-3xl shadow-sm border-t-4 border-rose-500"
+            >
+              <p
+                class="text-[10px] text-slate-400 font-black uppercase tracking-widest"
+              >
+                Công nợ (Triệu đồng)
+              </p>
+              <p
+                id="statTotalDebt"
+                class="text-4xl font-black mt-2 tracking-tighter text-slate-900"
+              >
+                0
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="mt-10 bg-white shadow-sm rounded-[32px] overflow-hidden border border-slate-200"
+          >
+            <div
+              class="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-slate-50/50"
+            >
+              <h3
+                class="font-black text-slate-800 uppercase italic tracking-tight"
+              >
+                Hoạt động mới nhất
+              </h3>
+              <button
+                onclick="location.reload()"
+                class="text-slate-400 hover:text-blue-600"
+              >
+                <i class="fas fa-sync-alt"></i>
+              </button>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left">
+                <thead
+                  class="bg-slate-50/30 text-slate-400 text-[10px] uppercase font-black tracking-widest border-b"
+                >
+                  <tr>
+                    <th class="px-8 py-4">Đối tác</th>
+                    <th class="px-8 py-4">Sự kiện</th>
+                    <th class="px-8 py-4">Thời gian</th>
+                    <th class="px-8 py-4 text-right">Giá trị (VNĐ)</th>
+                  </tr>
+                </thead>
+                <tbody
+                  id="recentActivityBody"
+                  class="divide-y divide-slate-50 text-sm"
+                ></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/admin/admin_dashboard.js"></script>
+  </body>
+</html>

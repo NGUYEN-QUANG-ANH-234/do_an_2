@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cổng Hóa Đơn - Mina Rubber</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
+  </head>
+  <body class="bg-slate-50 text-slate-800">
+    <div class="flex min-h-screen">
+      <aside
+        id="sidebarContainer"
+        class="w-64 bg-slate-900 text-slate-300 flex-shrink-0 hidden lg:flex flex-col"
+      ></aside>
+
+      <main class="flex-1 flex flex-col h-screen overflow-hidden">
+        <header
+          class="h-16 bg-white shadow-sm flex items-center justify-between px-8 shrink-0 z-10 border-b"
+        >
+          <h2
+            class="text-lg font-black text-slate-700 uppercase italic tracking-tighter"
+          >
+            Trung tâm Hóa đơn & Tài chính
+          </h2>
+          <div id="headerUserContainer"></div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-8 custom-scrollbar">
+          <div
+            class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4"
+          >
+            <div>
+              <h1 class="text-3xl font-black text-slate-900 italic uppercase">
+                Danh sách hóa đơn
+              </h1>
+              <p
+                class="text-slate-500 text-[10px] font-bold uppercase tracking-[0.3em] mt-1"
+              >
+                Quản lý dòng tiền và công nợ đối tác
+              </p>
+            </div>
+
+            <div class="flex gap-4">
+              <div
+                class="bg-white px-6 py-3 rounded-2xl shadow-sm border border-slate-100"
+              >
+                <p
+                  class="text-[9px] text-slate-400 font-black uppercase tracking-widest"
+                >
+                  Hóa đơn chờ
+                </p>
+                <p
+                  id="pendingInvoiceCount"
+                  class="text-xl font-black text-orange-500 italic"
+                >
+                  0
+                </p>
+              </div>
+              <div class="bg-slate-900 px-6 py-3 rounded-2xl shadow-lg">
+                <p
+                  class="text-[9px] text-slate-400 font-black uppercase tracking-widest"
+                >
+                  Đã thanh toán
+                </p>
+                <p
+                  id="paidInvoiceCount"
+                  class="text-xl font-black text-emerald-400 italic"
+                >
+                  0
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-white rounded-[40px] shadow-sm border border-slate-200 overflow-hidden"
+          >
+            <div
+              class="px-8 py-6 border-b border-slate-50 flex justify-between items-center bg-slate-50/50"
+            >
+              <div class="flex items-center gap-3">
+                <div class="w-2 h-8 bg-blue-600 rounded-full"></div>
+                <h3
+                  class="font-black text-slate-800 uppercase italic tracking-tight"
+                >
+                  Dữ liệu hóa đơn hệ thống
+                </h3>
+              </div>
+              <div class="flex gap-2">
+                <input
+                  type="text"
+                  placeholder="Tìm mã hóa đơn..."
+                  class="bg-white border border-slate-200 rounded-xl px-4 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 w-64"
+                />
+                <button
+                  onclick="location.reload()"
+                  class="p-2 bg-white border border-slate-200 rounded-xl hover:bg-slate-50 transition-colors"
+                >
+                  <i class="fas fa-sync-alt text-slate-400"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left">
+                <thead
+                  class="bg-slate-50/50 text-slate-400 text-[10px] uppercase font-black tracking-widest border-b"
+                >
+                  <tr>
+                    <th class="px-8 py-5">Mã Hóa đơn</th>
+                    <th class="px-8 py-5">Đối tác & Thời gian</th>
+                    <th class="px-8 py-5">Giá trị quyết toán</th>
+                    <th class="px-8 py-5 text-center">Tình trạng nợ</th>
+                    <th class="px-8 py-5 text-right">Hành động</th>
+                  </tr>
+                </thead>
+                <tbody id="invoicePortalBody" class="divide-y divide-slate-50">
+                  <tr>
+                    <td colspan="5" class="p-20 text-center">
+                      <div class="animate-pulse flex flex-col items-center">
+                        <i
+                          class="fas fa-spinner fa-spin text-3xl text-blue-200 mb-4"
+                        ></i>
+                        <p
+                          class="text-[10px] font-black uppercase italic text-slate-300"
+                        >
+                          Đang truy xuất dữ liệu kế toán...
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/invoice/invoice_portal.js"></script>
+  </body>
+</html>

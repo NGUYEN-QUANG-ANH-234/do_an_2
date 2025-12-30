@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Theo Dõi Hành Trình - Mina Rubber</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
+  </head>
+  <style>
+    .dest-label {
+      background: #2563eb;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: bold;
+      white-space: nowrap;
+      border: 2px solid white;
+    }
+  </style>
+  <body class="bg-slate-50 text-slate-800 font-inter">
+    <div class="flex min-h-screen">
+      <aside
+        id="sidebar"
+        class="w-64 bg-slate-900 text-slate-300 flex-shrink-0"
+      ></aside>
+
+      <main class="flex-1 flex flex-col">
+        <header
+          class="h-16 bg-white shadow-sm flex items-center justify-between px-8 z-10"
+        >
+          <h2
+            class="text-lg font-black text-slate-700 uppercase italic tracking-tighter"
+          >
+            Hành Trình Đơn Hàng
+          </h2>
+
+          <div id="headerUserContainer"></div>
+        </header>
+
+        <div class="p-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div
+            class="lg:col-span-1 space-y-4 overflow-y-auto max-h-[calc(100vh-150px)]"
+          >
+            <h3
+              class="font-black text-slate-400 text-[10px] uppercase italic mb-4 tracking-widest"
+            >
+              Đơn hàng đang giao
+            </h3>
+            <div id="shippingList" class="space-y-4"></div>
+          </div>
+
+          <div class="lg:col-span-2 space-y-6">
+            <div
+              class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden relative"
+            >
+              <div id="map" class="w-full h-[400px] z-0"></div>
+              <div
+                class="absolute top-4 left-4 z-[1000] bg-white/90 backdrop-blur px-4 py-2 rounded-xl border border-slate-200 shadow-sm"
+              >
+                <p
+                  class="text-[10px] font-black uppercase italic text-blue-600"
+                >
+                  Vị trí tài xế hiện tại
+                </p>
+                <p
+                  id="currentLocationText"
+                  class="text-xs font-bold text-slate-700 font-mono tracking-tighter italic uppercase"
+                >
+                  Đang tải...
+                </p>
+              </div>
+            </div>
+
+            <div
+              class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8"
+            >
+              <div class="flex justify-between items-center mb-8">
+                <h3 class="font-black text-slate-700 uppercase italic text-sm">
+                  Trạng thái vận đơn
+                </h3>
+                <span
+                  id="displayOrderId"
+                  class="text-blue-600 font-black italic"
+                  >#---</span
+                >
+              </div>
+              <div
+                id="shippingTimeline"
+                class="relative border-l-2 border-blue-500 ml-4 pl-10 space-y-8"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/order/order_shipping.js"></script>
+  </body>
+</html>

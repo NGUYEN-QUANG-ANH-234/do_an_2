@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mina Rubber System - Loading...</title>
+    <script>
+      // Hàm điều phối ngay khi tải trang (trước khi render body)
+      function routeUser() {
+        const user = JSON.parse(localStorage.getItem("mina_user"));
+
+        // 1. Nếu chưa đăng nhập: Đẩy về trang Login
+        if (!user) {
+          window.location.href = "pages/auth/auth_login.html";
+          return;
+        }
+
+        // 2. Nếu đã đăng nhập: Điều phối theo Role (Khớp với cây thư mục của bạn)
+        const roleRoutes = {
+          ADMIN: "pages/admin/admin_dashboard.html",
+          MANAGER: "pages/admin/admin_dashboard.html",
+          ACCOUNTANT: "pages/accounting/accounting_portal.html",
+          AGENCY: "pages/agency/agency_portal.html",
+          WAREHOUSE: "pages/warehouse/warehouse_portal.html",
+          TRANSPORT: "pages/transport/transport_portal.html",
+        };
+
+        const targetPage =
+          roleRoutes[user.role] || "pages/auth/auth_login.html";
+        window.location.href = targetPage;
+      }
+
+      // Thực hiện điều hướng
+      routeUser();
+    </script>
+  </head>
+  <body
+    style="
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    "
+  >
+    <div style="color: white; font-family: sans-serif; text-align: center">
+      <h2 style="font-weight: 900 italic">MINA RUBBER</h2>
+      <p style="font-size: 12px; color: #64748b">
+        Đang điều phối quyền truy cập...
+      </p>
+    </div>
+  </body>
+</html>

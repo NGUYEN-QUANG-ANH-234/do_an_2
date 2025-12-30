@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order Portal - Mina Rubber</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 text-slate-800">
+    <div class="flex min-h-screen">
+      <aside class="w-64 bg-slate-900 text-slate-300 flex-shrink-0"></aside>
+
+      <main class="flex-1 flex flex-col">
+        <header
+          class="h-16 bg-white shadow-sm flex items-center justify-between px-8 relative z-10"
+        >
+          <h2
+            class="text-lg font-black text-slate-700 uppercase italic tracking-tighter"
+          >
+            Trung Tâm Đơn Hàng & Điều Phối
+          </h2>
+          <div id="headerUserContainer"></div>
+        </header>
+
+        <div class="p-8">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+            <a
+              href="order_create.html"
+              class="flex items-center p-6 bg-blue-600 rounded-3xl shadow-lg shadow-blue-200 hover:bg-blue-700 transition-all group"
+            >
+              <div
+                class="w-14 h-14 bg-blue-500 rounded-2xl flex items-center justify-center text-white mr-5 group-hover:scale-110 transition-transform"
+              >
+                <i class="fas fa-cart-plus text-2xl"></i>
+              </div>
+              <div>
+                <h4 class="text-white font-black uppercase italic text-sm">
+                  Tạo đơn mới
+                </h4>
+                <p class="text-blue-100 text-[10px] font-medium mt-1">
+                  Khởi tạo đơn đặt hàng đại lý
+                </p>
+              </div>
+            </a>
+
+            <a
+              href="order_history.html"
+              class="flex items-center p-6 bg-white rounded-3xl border border-slate-100 shadow-sm hover:border-slate-800 transition-all group"
+            >
+              <div
+                class="w-14 h-14 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-600 mr-5 group-hover:bg-slate-800 group-hover:text-white transition-all"
+              >
+                <i class="fas fa-history text-2xl"></i>
+              </div>
+              <div>
+                <h4 class="text-slate-700 font-black uppercase italic text-sm">
+                  Lịch sử đơn
+                </h4>
+                <p class="text-slate-400 text-[10px] font-medium mt-1">
+                  Tra cứu trạng thái & chi tiết
+                </p>
+              </div>
+            </a>
+
+            <a
+              href="order_shipping.html"
+              class="flex items-center p-6 bg-white rounded-3xl border border-slate-100 shadow-sm hover:border-orange-500 transition-all group"
+            >
+              <div
+                class="w-14 h-14 bg-orange-50 rounded-2xl flex items-center justify-center text-orange-600 mr-5 group-hover:bg-orange-500 group-hover:text-white transition-all"
+              >
+                <i class="fas fa-shipping-fast text-2xl"></i>
+              </div>
+              <div>
+                <h4 class="text-slate-700 font-black uppercase italic text-sm">
+                  Theo dõi giao hàng
+                </h4>
+                <p class="text-slate-400 text-[10px] font-medium mt-1">
+                  Thông tin vận đơn & COD
+                </p>
+              </div>
+            </a>
+
+            <a
+              href="order_confirm.html"
+              class="flex items-center p-6 bg-slate-800 rounded-3xl shadow-lg shadow-slate-200 hover:bg-slate-900 transition-all group"
+            >
+              <div
+                class="w-14 h-14 bg-slate-700 rounded-2xl flex items-center justify-center text-white mr-5 group-hover:scale-110 transition-transform"
+              >
+                <i class="fas fa-file-signature text-2xl text-green-400"></i>
+              </div>
+              <div>
+                <h4 class="text-white font-black uppercase italic text-sm">
+                  Duyệt nhập kho
+                </h4>
+                <p class="text-slate-400 text-[10px] font-medium mt-1">
+                  Xác nhận & Chốt kế toán
+                </p>
+              </div>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-2 md:grid-cols-5 gap-6 mb-10">
+            <div
+              class="bg-white p-6 rounded-2xl border-b-4 border-orange-400 shadow-sm"
+            >
+              <p class="text-[10px] font-black text-slate-400 uppercase italic">
+                Chờ kho xử lý
+              </p>
+              <p
+                id="countPending"
+                class="text-3xl font-black text-slate-800 mt-2"
+              >
+                0
+              </p>
+            </div>
+            <div
+              class="bg-white p-6 rounded-2xl border-b-4 border-blue-400 shadow-sm"
+            >
+              <p class="text-[10px] font-black text-slate-400 uppercase italic">
+                Đang giao hàng
+              </p>
+              <p
+                id="countShipping"
+                class="text-3xl font-black text-slate-800 mt-2"
+              >
+                0
+              </p>
+            </div>
+            <div
+              class="bg-white p-6 rounded-2xl border-b-4 border-indigo-600 shadow-sm relative overflow-hidden"
+            >
+              <p class="text-[10px] font-black text-slate-400 uppercase italic">
+                Đã cập bến (Chờ duyệt)
+              </p>
+              <p
+                id="countArrived"
+                class="text-3xl font-black text-indigo-600 mt-2"
+              >
+                0
+              </p>
+              <i
+                class="fas fa-map-pin absolute -right-2 -bottom-2 text-indigo-50 text-4xl"
+              ></i>
+            </div>
+            <div
+              class="bg-white p-6 rounded-2xl border-b-4 border-green-400 shadow-sm"
+            >
+              <p class="text-[10px] font-black text-slate-400 uppercase italic">
+                Giao thành công
+              </p>
+              <p
+                id="countDelivered"
+                class="text-3xl font-black text-slate-800 mt-2"
+              >
+                0
+              </p>
+            </div>
+            <div
+              class="bg-white p-6 rounded-2xl border-b-4 border-slate-400 shadow-sm"
+            >
+              <p class="text-[10px] font-black text-slate-400 uppercase italic">
+                Tổng đơn (Tháng)
+              </p>
+              <p
+                id="countTotal"
+                class="text-3xl font-black text-slate-800 mt-2"
+              >
+                0
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden"
+          >
+            <div
+              class="p-6 border-b border-slate-50 flex justify-between items-center bg-slate-50/50"
+            >
+              <h3 class="font-black text-slate-700 uppercase italic text-sm">
+                Hoạt động đơn hàng gần đây
+              </h3>
+              <a
+                href="order_history.html"
+                class="text-[10px] font-black text-blue-600 uppercase hover:underline"
+                >Xem tất cả</a
+              >
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left">
+                <thead class="bg-slate-50/50">
+                  <tr
+                    class="text-[10px] font-black uppercase text-slate-400 border-b border-slate-50"
+                  >
+                    <th class="px-6 py-4">Mã đơn</th>
+                    <th class="px-6 py-4">Sản phẩm</th>
+                    <th class="px-6 py-4">Khách hàng</th>
+                    <th class="px-6 py-4">Trạng thái</th>
+                    <th class="px-6 py-4 text-right">Ngày tạo</th>
+                  </tr>
+                </thead>
+                <tbody id="recentOrdersTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/order/order_portal.js"></script>
+  </body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cổng Thanh Toán Đại Lý - Mina Rubber</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap");
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+      }
+      #invoiceModal.active {
+        display: flex;
+      }
+
+      @media print {
+        .no-print {
+          display: none !important;
+        }
+        .invoice-container {
+          box-shadow: none !important;
+          border: 1px solid #e2e8f0 !important;
+          width: 100% !important;
+          margin: 0 !important;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 text-slate-800 overflow-hidden">
+    <div class="flex min-h-screen">
+      <aside
+        id="sidebarContainer"
+        class="w-64 bg-slate-900 text-slate-300 flex-shrink-0 hidden lg:flex flex-col"
+      ></aside>
+
+      <main class="flex-1 flex flex-col h-screen overflow-hidden">
+        <header
+          class="h-16 bg-white shadow-sm flex items-center justify-between px-8 shrink-0 z-10 border-b"
+        >
+          <h2
+            class="text-lg font-black text-slate-700 uppercase italic tracking-tighter"
+          >
+            Trung tâm Tài chính Đối tác
+          </h2>
+          <div id="headerUserContainer"></div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-8 custom-scrollbar">
+          <div
+            class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4"
+          >
+            <div>
+              <h1 class="text-3xl font-black text-slate-900 italic uppercase">
+                Hóa đơn & Công nợ
+              </h1>
+              <p
+                class="text-slate-500 text-[10px] font-bold uppercase tracking-[0.3em] mt-1"
+              >
+                Theo dõi lịch sử giao dịch và hoàn tất thanh toán hàng hóa
+              </p>
+            </div>
+
+            <div
+              class="bg-blue-600 px-8 py-4 rounded-[30px] shadow-xl shadow-blue-200 text-white flex items-center gap-6"
+            >
+              <div>
+                <p
+                  class="text-[9px] font-black uppercase tracking-widest opacity-70"
+                >
+                  Dư nợ cần thanh toán
+                </p>
+                <p
+                  id="totalAgencyDebt"
+                  class="text-2xl font-black italic tracking-tighter"
+                >
+                  0 đ
+                </p>
+              </div>
+              <div
+                class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center"
+              >
+                <i class="fas fa-wallet text-sm"></i>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-white rounded-[40px] shadow-sm border border-slate-200 overflow-hidden"
+          >
+            <div
+              class="px-8 py-6 border-b border-slate-50 flex justify-between items-center bg-slate-50/50"
+            >
+              <div class="flex items-center gap-3">
+                <div class="w-2 h-8 bg-blue-600 rounded-full"></div>
+                <h3
+                  class="font-black text-slate-800 uppercase italic tracking-tight"
+                >
+                  Hóa đơn phát hành từ Mina Rubber
+                </h3>
+              </div>
+              <div class="flex gap-2">
+                <input
+                  type="text"
+                  id="agencyInvoiceSearch"
+                  placeholder="Tìm mã số hóa đơn..."
+                  class="bg-white border border-slate-200 rounded-xl px-4 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 w-48"
+                />
+              </div>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left">
+                <thead
+                  class="bg-slate-50/50 text-slate-400 text-[10px] uppercase font-black tracking-widest border-b"
+                >
+                  <tr>
+                    <th class="px-8 py-5">Mã Hóa đơn</th>
+                    <th class="px-8 py-5">Mô tả vận đơn</th>
+                    <th class="px-8 py-5">Giá trị quyết toán</th>
+                    <th class="px-8 py-5 text-center">Trạng thái nợ</th>
+                    <th class="px-8 py-5 text-right">Hành động</th>
+                  </tr>
+                </thead>
+                <tbody
+                  id="agencyInvoiceTable"
+                  class="divide-y divide-slate-50 text-[11px] font-bold"
+                ></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div
+      id="invoiceModal"
+      class="hidden fixed inset-0 z-[100] bg-slate-900/60 backdrop-blur-sm items-center justify-center p-4 no-print"
+    >
+      <div
+        class="bg-white w-full max-w-4xl rounded-[40px] shadow-2xl overflow-hidden max-h-[95vh] flex flex-col"
+      >
+        <div
+          class="px-8 py-4 border-b flex justify-between items-center bg-slate-50/50"
+        >
+          <span
+            class="text-[10px] font-black uppercase italic text-slate-400 tracking-widest"
+            >Chi tiết chứng từ điện tử</span
+          >
+          <button
+            onclick="closeInvoiceModal()"
+            class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-red-50 text-slate-400 hover:text-red-500 transition-all"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div
+          id="modalContent"
+          class="flex-1 overflow-y-auto p-0 custom-scrollbar bg-white"
+        ></div>
+
+        <div
+          id="modalFooter"
+          class="px-8 py-6 border-t bg-slate-50 flex justify-end gap-3 shadow-inner"
+        ></div>
+      </div>
+    </div>
+
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/invoice/invoice_agency.js"></script>
+  </body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tạo Đơn Hàng - Mina Rubber</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 text-slate-800">
+    <div class="flex min-h-screen">
+      <aside
+        id="sidebar"
+        class="w-64 bg-slate-900 text-slate-300 flex-shrink-0"
+      ></aside>
+
+      <main class="flex-1 flex flex-col">
+        <header
+          class="h-16 bg-white shadow-sm flex items-center justify-between px-8 relative z-10"
+        >
+          <h2
+            class="text-lg font-black text-slate-700 uppercase italic tracking-tighter"
+          >
+            Khởi Tạo Đơn Hàng Mới
+          </h2>
+          <div id="headerUserContainer"></div>
+        </header>
+
+        <div class="p-8 max-w-5xl mx-auto w-full">
+          <form id="orderForm" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-6">
+              <div
+                class="bg-white rounded-3xl shadow-sm border border-slate-100 p-8"
+              >
+                <h3
+                  class="font-black text-slate-700 uppercase italic mb-6 border-b pb-4 text-sm tracking-widest"
+                >
+                  Chi tiết đơn hàng
+                </h3>
+
+                <div class="space-y-6">
+                  <div>
+                    <label
+                      class="block text-[10px] font-black uppercase text-slate-400 mb-2 tracking-widest"
+                      >Sản phẩm cần đặt</label
+                    >
+                    <select
+                      id="productSelect"
+                      required
+                      class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-4 font-bold focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    >
+                      <option value="">
+                        -- Tìm và chọn sản phẩm từ danh mục --
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-6">
+                    <div>
+                      <label
+                        class="block text-[10px] font-black uppercase text-slate-400 mb-2 tracking-widest"
+                        >Số lượng đặt</label
+                      >
+                      <input
+                        type="number"
+                        id="orderQty"
+                        min="1"
+                        value="1"
+                        required
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-4 font-black text-2xl focus:ring-2 focus:ring-blue-500 outline-none"
+                      />
+                      <p
+                        id="stockWarning"
+                        class="hidden text-[10px] font-bold text-red-500 mt-2 uppercase italic"
+                      ></p>
+                    </div>
+                    <div>
+                      <label
+                        class="block text-[10px] font-black uppercase text-slate-400 mb-2 tracking-widest"
+                        >Đơn giá bán lẻ (VNĐ)</label
+                      >
+                      <input
+                        type="text"
+                        id="displayPrice"
+                        readonly
+                        class="w-full bg-slate-100 border border-slate-200 rounded-xl px-4 py-4 font-bold text-slate-500 outline-none cursor-not-allowed"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label
+                      class="block text-[10px] font-black uppercase text-slate-400 mb-2 tracking-widest"
+                      >Ghi chú giao hàng</label
+                    >
+                    <textarea
+                      id="orderNote"
+                      rows="3"
+                      placeholder="Nhập địa chỉ giao hàng hoặc yêu cầu đặc biệt..."
+                      class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                    ></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-6">
+              <div
+                class="bg-slate-900 rounded-3xl p-8 text-white shadow-xl shadow-blue-900/20"
+              >
+                <h3
+                  class="font-black uppercase italic mb-6 border-b border-slate-700 pb-4 text-sm tracking-widest"
+                >
+                  Tổng thanh toán
+                </h3>
+
+                <div class="space-y-4 mb-8">
+                  <div
+                    class="flex justify-between items-center text-slate-400 text-xs"
+                  >
+                    <span>Trạng thái kho:</span>
+                    <span id="stockStatus" class="font-bold text-slate-300"
+                      >--</span
+                    >
+                  </div>
+                  <div
+                    class="flex justify-between items-center text-slate-400 text-xs"
+                  >
+                    <span>Tạm tính:</span>
+                    <span id="subtotal" class="font-bold text-white">0đ</span>
+                  </div>
+                  <div
+                    class="flex justify-between items-end pt-6 border-t border-slate-800"
+                  >
+                    <span
+                      class="text-[10px] font-black uppercase text-slate-500"
+                      >Tổng cộng:</span
+                    >
+                    <span
+                      id="totalAmount"
+                      class="text-3xl font-black text-yellow-400 tracking-tighter"
+                      >0đ</span
+                    >
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  id="btnSubmitOrder"
+                  class="w-full py-5 bg-blue-600 hover:bg-blue-500 text-white rounded-2xl font-black uppercase italic transition-all shadow-lg active:scale-95 flex items-center justify-center gap-2"
+                >
+                  <i class="fas fa-paper-plane"></i> Gửi Đơn Hàng
+                </button>
+                <p
+                  class="text-[9px] text-center mt-4 text-slate-500 italic uppercase"
+                >
+                  Dữ liệu sẽ được đẩy trực tiếp tới bộ phận Kho.
+                </p>
+              </div>
+
+              <div class="bg-blue-50 border border-blue-100 rounded-2xl p-6">
+                <h4
+                  class="text-xs font-black text-blue-800 uppercase mb-2 italic"
+                >
+                  Lưu ý nghiệp vụ:
+                </h4>
+                <ul class="text-[10px] text-blue-600 space-y-2 font-medium">
+                  <li>
+                    • Đơn hàng sau khi gửi sẽ ở trạng thái <b>Chờ Kho</b>.
+                  </li>
+                  <li>
+                    • Bạn có thể theo dõi tại mục <b>Lịch sử đơn hàng</b>.
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/order/order_create.js"></script>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "frontend_do_an_2",
+  "version": "1.0.0",
+  "main": "D:cac_mon_nam_4/nqa_do_an_2san_pham/frontend/pages/authauth_login.html",
+  "scripts": {
+    "dev": "npx live-server .",
+    "start": "npx live-server ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

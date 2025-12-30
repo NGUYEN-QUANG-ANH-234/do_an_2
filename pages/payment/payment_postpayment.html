@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Công nợ Trả sau của tôi - Mina Rubber</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+      }
+
+      .debt-card {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .debt-card:hover {
+        transform: translateY(-5px);
+      }
+
+      /* Hiệu ứng nhấp nháy cho đơn hàng quá hạn */
+      .pulse-red {
+        animation: pulse-red 2s infinite;
+      }
+      @keyframes pulse-red {
+        0% {
+          box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 min-h-screen flex custom-scrollbar">
+    <aside
+      id="sidebarContainer"
+      class="w-64 bg-slate-900 text-slate-300 flex-shrink-0 min-h-screen hidden lg:flex flex-col"
+    ></aside>
+
+    <main class="flex-1 flex flex-col overflow-hidden">
+      <header
+        class="h-20 bg-white shadow-sm flex items-center justify-between px-10 border-b border-slate-100 relative z-10"
+      >
+        <div class="flex items-center space-x-3">
+          <div
+            class="w-10 h-10 bg-orange-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-orange-100"
+          >
+            <i class="fas fa-hand-holding-dollar"></i>
+          </div>
+          <div>
+            <h2
+              class="text-lg font-black text-slate-800 uppercase italic tracking-tighter leading-none"
+            >
+              Công nợ Đại lý
+            </h2>
+            <p
+              class="text-[10px] text-slate-400 font-bold uppercase mt-1 tracking-widest text-orange-500"
+            >
+              Theo dõi dư nợ và Hạn thanh toán của bạn
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <button
+            onclick="window.location.href='payment_portal.html'"
+            class="px-5 py-2.5 text-[11px] font-black text-slate-500 hover:text-orange-600 transition-all uppercase italic"
+          >
+            <i class="fas fa-arrow-left mr-2"></i> Quay lại Portal
+          </button>
+          <div id="headerUserContainer"></div>
+        </div>
+      </header>
+
+      <div class="p-10 h-[calc(100vh-80px)] overflow-y-auto custom-scrollbar">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+          <div
+            class="debt-card bg-slate-900 p-8 rounded-[40px] text-white shadow-2xl relative overflow-hidden"
+          >
+            <div class="relative z-10">
+              <p
+                class="text-[10px] font-black uppercase opacity-60 italic mb-2 tracking-widest"
+              >
+                Tổng dư nợ hiện tại
+              </p>
+              <h3 id="myTotalDebt" class="text-3xl font-black leading-none">
+                0đ
+              </h3>
+            </div>
+            <i
+              class="fas fa-receipt absolute -right-6 -bottom-6 text-white/10 text-9xl"
+            ></i>
+          </div>
+
+          <div
+            class="debt-card bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm flex items-center justify-between"
+          >
+            <div>
+              <p
+                class="text-[10px] font-black text-slate-400 uppercase italic mb-2 tracking-widest"
+              >
+                Hạn thanh toán tiếp theo
+              </p>
+              <h3
+                id="nextDueDate"
+                class="text-xl font-black text-slate-800 italic leading-none"
+              >
+                --/--/----
+              </h3>
+            </div>
+            <div
+              class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center"
+            >
+              <i class="fas fa-calendar-day text-xl"></i>
+            </div>
+          </div>
+
+          <div
+            id="overdueCard"
+            class="debt-card bg-white p-8 rounded-[40px] border border-red-100 shadow-sm flex items-center justify-between"
+          >
+            <div>
+              <p
+                class="text-[10px] font-black text-red-500 uppercase italic mb-2 tracking-widest"
+              >
+                Khoản nợ quá hạn
+              </p>
+              <h3
+                id="myOverdueCount"
+                class="text-3xl font-black text-red-600 leading-none"
+              >
+                0
+              </h3>
+            </div>
+            <div
+              class="w-12 h-12 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center"
+            >
+              <i class="fas fa-clock text-xl"></i>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="bg-white rounded-[40px] shadow-sm border border-slate-100 overflow-hidden"
+        >
+          <div
+            class="p-8 border-b border-slate-50 bg-slate-50/30 flex justify-between items-center"
+          >
+            <div>
+              <h3
+                class="text-[11px] font-black uppercase text-slate-700 italic tracking-[0.2em]"
+              >
+                Chi tiết các đơn hàng ghi nợ
+              </h3>
+              <p
+                class="text-[9px] text-slate-400 font-bold uppercase mt-1 italic"
+              >
+                Vui lòng thanh toán trước ngày hết hạn để duy trì hạn mức
+              </p>
+            </div>
+            <div class="flex bg-white p-1 rounded-xl border border-slate-200">
+              <i class="fas fa-search text-slate-300 ml-3 mt-3"></i>
+              <input
+                type="text"
+                id="debtSearch"
+                placeholder="Tìm theo mã đơn..."
+                class="px-4 py-2 text-[10px] font-bold outline-none w-48"
+              />
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr
+                  class="text-[10px] font-black uppercase text-slate-400 tracking-widest border-b border-slate-50"
+                >
+                  <th class="px-10 py-6">Mã Vận đơn / Ngày mua</th>
+                  <th class="px-10 py-6">Sản phẩm / Quy cách</th>
+                  <th class="px-10 py-6 text-center">Số tiền cần trả</th>
+                  <th class="px-10 py-6 text-center">Hạn cuối thanh toán</th>
+                  <th class="px-10 py-6 text-right">Hành động</th>
+                </tr>
+              </thead>
+              <tbody
+                id="myPostpaidTableBody"
+                class="divide-y divide-slate-50 text-[11px] font-bold"
+              ></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="mt-8 p-6 bg-orange-50 border border-orange-100 rounded-3xl">
+          <div class="flex gap-4">
+            <i class="fas fa-info-circle text-orange-500 text-xl mt-1"></i>
+            <div>
+              <h5 class="text-xs font-black uppercase text-orange-800 italic">
+                Chính sách hạn mức nợ (Scenario 5.3)
+              </h5>
+              <p
+                class="text-[10px] text-orange-700 mt-1 font-medium leading-relaxed"
+              >
+                Hệ thống tự động áp dụng hạn nợ 15 ngày cho mỗi đơn hàng. Nếu có
+                từ 2 đơn hàng quá hạn, tính năng tạo đơn mới sẽ tạm thời bị khóa
+                cho đến khi các khoản nợ được tất toán.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/payment/payment_postpayment.js"></script>
+  </body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý Thanh toán Trả trước - Mina Rubber</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+      }
+
+      .wallet-card {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .wallet-card:hover {
+        transform: translateY(-5px);
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 min-h-screen flex custom-scrollbar">
+    <aside
+      id="sidebarContainer"
+      class="w-64 bg-slate-900 text-slate-300 flex-shrink-0 min-h-screen hidden lg:flex flex-col"
+    ></aside>
+
+    <main class="flex-1 flex flex-col overflow-hidden">
+      <header
+        class="h-20 bg-white shadow-sm flex items-center justify-between px-10 border-b border-slate-100 relative z-10"
+      >
+        <div class="flex items-center space-x-3">
+          <div
+            class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-indigo-100"
+          >
+            <i class="fas fa-wallet"></i>
+          </div>
+          <div>
+            <h2
+              class="text-lg font-black text-slate-800 uppercase italic tracking-tighter leading-none"
+            >
+              Quản lý Trả trước (Pool)
+            </h2>
+            <p
+              class="text-[10px] text-slate-400 font-bold uppercase mt-1 tracking-widest text-indigo-500"
+            >
+              Nạp quỹ & Khấu trừ công nợ tự động
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <button
+            onclick="window.location.href='payment_portal.html'"
+            class="px-5 py-2.5 text-[11px] font-black text-slate-500 hover:text-indigo-600 transition-all uppercase italic"
+          >
+            <i class="fas fa-arrow-left mr-2"></i> Quay lại Portal
+          </button>
+          <div id="headerUserContainer"></div>
+        </div>
+      </header>
+
+      <div class="p-10 h-[calc(100vh-80px)] overflow-y-auto custom-scrollbar">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+          <div
+            class="wallet-card bg-indigo-600 p-8 rounded-[40px] text-white shadow-2xl shadow-indigo-200 relative overflow-hidden"
+          >
+            <div class="relative z-10">
+              <p
+                class="text-[10px] font-black uppercase opacity-60 italic mb-2 tracking-widest"
+              >
+                Tổng quỹ khả dụng (Pool Balance)
+              </p>
+              <h3
+                id="totalDepositBalance"
+                class="text-3xl font-black leading-none text-white"
+              >
+                0đ
+              </h3>
+            </div>
+            <i
+              class="fas fa-vault absolute -right-6 -bottom-6 text-white/10 text-9xl"
+            ></i>
+          </div>
+
+          <div
+            class="wallet-card bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm flex items-center justify-between"
+          >
+            <div>
+              <p
+                class="text-[10px] font-black text-slate-400 uppercase italic mb-2 tracking-widest"
+              >
+                Số lượng ví kích hoạt
+              </p>
+              <h3
+                id="activeWalletCount"
+                class="text-3xl font-black text-slate-800 leading-none"
+              >
+                0
+              </h3>
+            </div>
+            <div
+              class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center"
+            >
+              <i class="fas fa-users-cog text-xl"></i>
+            </div>
+          </div>
+
+          <div
+            class="wallet-card bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm flex items-center justify-between"
+          >
+            <div>
+              <p
+                class="text-[10px] font-black text-green-500 uppercase italic mb-2 tracking-widest"
+              >
+                Nạp quỹ trong ngày
+              </p>
+              <h3
+                id="recentTopupCount"
+                class="text-3xl font-black text-slate-800 leading-none"
+              >
+                0đ
+              </h3>
+            </div>
+            <div
+              class="w-12 h-12 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center"
+            >
+              <i class="fas fa-plus-circle text-xl"></i>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="bg-white p-8 rounded-[40px] border border-slate-100 shadow-sm mb-10"
+        >
+          <div class="flex items-center justify-between mb-8">
+            <h3
+              class="text-sm font-black uppercase text-slate-800 italic tracking-widest flex items-center gap-2"
+            >
+              <i class="fas fa-piggy-bank text-indigo-600"></i> Khởi tạo Lệnh
+              nạp quỹ Đại lý
+            </h3>
+            <span
+              class="text-[9px] font-bold text-slate-400 uppercase tracking-tighter italic"
+              >Ghi nhận doanh thu trả trước</span
+            >
+          </div>
+
+          <form id="depositForm" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="space-y-1">
+              <label
+                class="text-[9px] font-black text-slate-400 uppercase ml-2 italic"
+                >Đại lý thụ hưởng</label
+              >
+              <select
+                id="depositAgency"
+                required
+                class="w-full bg-slate-50 border-none rounded-2xl p-4 text-xs font-bold outline-none focus:ring-2 focus:ring-indigo-500 transition-all cursor-pointer"
+              >
+                <option value="">-- CHỌN ĐẠI LÝ --</option>
+              </select>
+            </div>
+            <div class="space-y-1">
+              <label
+                class="text-[9px] font-black text-slate-400 uppercase ml-2 italic"
+                >Số tiền thực nạp (VNĐ)</label
+              >
+              <input
+                type="number"
+                id="depositAmount"
+                placeholder="VD: 50,000,000"
+                required
+                class="w-full bg-slate-50 border-none rounded-2xl p-4 text-xs font-bold outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+              />
+            </div>
+            <div class="space-y-1">
+              <label
+                class="text-[9px] font-black text-slate-400 uppercase ml-2 italic"
+                >Tham chiếu / Ghi chú</label
+              >
+              <input
+                type="text"
+                id="depositNote"
+                placeholder="Số UNC / Nội dung chuyển khoản..."
+                class="w-full bg-slate-50 border-none rounded-2xl p-4 text-xs font-bold outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
+              />
+            </div>
+            <div class="flex items-end">
+              <button
+                type="submit"
+                class="w-full bg-indigo-600 text-white py-4 rounded-2xl font-black uppercase italic text-[10px] hover:bg-slate-900 transition-all shadow-xl shadow-indigo-100 active:scale-95"
+              >
+                Xác nhận nạp tiền
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div
+          class="bg-white rounded-[40px] shadow-sm border border-slate-100 overflow-hidden"
+        >
+          <div
+            class="p-8 border-b border-slate-50 bg-slate-50/30 flex justify-between items-center"
+          >
+            <h3
+              class="text-[11px] font-black uppercase text-slate-700 italic tracking-[0.2em]"
+            >
+              Bảng đối soát số dư ví Đại lý
+            </h3>
+            <div class="flex bg-white p-1 rounded-xl border border-slate-200">
+              <i class="fas fa-search text-slate-300 ml-3 mt-3"></i>
+              <input
+                type="text"
+                id="walletSearch"
+                placeholder="Tìm tên đại lý..."
+                class="px-4 py-2 text-[10px] font-bold outline-none w-48"
+              />
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr
+                  class="text-[10px] font-black uppercase text-slate-400 tracking-widest border-b border-slate-50"
+                >
+                  <th class="px-10 py-6">Đại lý hệ thống</th>
+                  <th class="px-10 py-6">Số dư hiện có</th>
+                  <th class="px-10 py-6">Vốn nạp tích lũy</th>
+                  <th class="px-10 py-6">Trạng thái hạn mức</th>
+                  <th class="px-10 py-6 text-right">Hành động</th>
+                </tr>
+              </thead>
+              <tbody
+                id="walletTableBody"
+                class="divide-y divide-slate-50 text-[11px] font-bold"
+              ></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/payment/payment_prepayment.js"></script>
+  </body>
+</html>

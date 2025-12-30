@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lịch sử biến động giá - Mina Rubber</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
+  </head>
+  <body class="bg-slate-50 min-h-screen flex">
+    <main class="flex-1 p-8">
+      <header class="flex items-center justify-between mb-8">
+        <div>
+          <h2 class="text-2xl font-bold text-slate-800">
+            Biểu đồ biến động giá lẻ
+          </h2>
+          <p
+            id="productInfo"
+            class="text-blue-600 font-semibold italic mt-1"
+          ></p>
+        </div>
+        <a
+          href="product_list.html"
+          class="text-slate-500 hover:text-slate-800 font-medium flex items-center"
+        >
+          <i class="fas fa-arrow-left me-2"></i> Quay lại
+        </a>
+
+        <div id="headerUserContainer"></div>
+      </header>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+          <p class="text-xs font-bold text-slate-400 uppercase">Giá hiện tại</p>
+          <p
+            id="currentPriceDisplay"
+            class="text-2xl font-black text-orange-600 mt-2"
+          >
+            0đ
+          </p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+          <p class="text-xs font-bold text-slate-400 uppercase">
+            Lần thay đổi gần nhất
+          </p>
+          <p
+            id="lastChangeDisplay"
+            class="text-2xl font-black text-slate-700 mt-2"
+          >
+            ---
+          </p>
+        </div>
+      </div>
+
+      <div
+        class="bg-white shadow-xl rounded-2xl overflow-hidden border border-slate-200"
+      >
+        <table class="w-full text-left">
+          <thead
+            class="bg-slate-50 border-b border-slate-100 text-slate-500 text-[11px] uppercase font-bold"
+          >
+            <tr>
+              <th class="px-6 py-4">Ngày áp dụng</th>
+              <th class="px-6 py-4">Giá bán lẻ</th>
+              <th class="px-6 py-4 text-center">Biến động</th>
+              <th class="px-6 py-4">Ghi chú</th>
+            </tr>
+          </thead>
+          <tbody id="priceBody" class="divide-y divide-slate-100"></tbody>
+        </table>
+      </div>
+    </main>
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/product/product_price_history.js"></script>
+  </body>
+</html>

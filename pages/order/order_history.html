@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lịch Sử Đơn Hàng - Mina Rubber</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
+  </head>
+  <body class="bg-slate-50 text-slate-800">
+    <div class="flex min-h-screen">
+      <aside
+        id="sidebar"
+        class="w-64 bg-slate-900 text-slate-300 flex-shrink-0"
+      ></aside>
+
+      <main class="flex-1 flex flex-col">
+        <header
+          class="h-16 bg-white shadow-sm flex items-center justify-between px-8 relative z-10"
+        >
+          <h2
+            class="text-lg font-black text-slate-700 uppercase italic tracking-tighter"
+          >
+            Nhật Ký Đơn Hàng
+          </h2>
+
+          <div id="headerUserContainer"></div>
+        </header>
+
+        <div class="p-8">
+          <div
+            class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4"
+          >
+            <div class="flex items-center space-x-4 w-full md:w-auto">
+              <div class="relative flex-1 md:w-80">
+                <i
+                  class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                ></i>
+                <input
+                  type="text"
+                  id="orderSearch"
+                  onkeyup="filterOrders()"
+                  placeholder="Mã đơn hoặc tên sản phẩm..."
+                  class="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-2xl shadow-sm focus:ring-2 focus:ring-blue-500 outline-none font-bold"
+                />
+              </div>
+              <select
+                id="statusFilter"
+                onchange="filterOrders()"
+                class="bg-white border border-slate-200 rounded-2xl px-4 py-3 font-bold text-sm outline-none shadow-sm focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">Tất cả trạng thái</option>
+                <option value="READY_FOR_WAREHOUSE">Chờ Kho xử lý</option>
+                <option value="SHIPPING">Đang giao hàng</option>
+                <option value="DELIVERED">Đã giao thành công</option>
+              </select>
+            </div>
+            <a
+              href="order_create.html"
+              class="px-6 py-3 bg-slate-900 text-white rounded-xl font-black uppercase italic text-xs shadow-lg hover:bg-blue-600 transition-all"
+            >
+              <i class="fas fa-plus mr-2"></i> Tạo đơn mới
+            </a>
+          </div>
+
+          <div
+            class="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden"
+          >
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr
+                  class="bg-slate-50 text-[10px] uppercase font-black text-slate-400 border-b border-slate-100"
+                >
+                  <th class="px-6 py-5">Đơn hàng / Ngày tạo</th>
+                  <th class="px-6 py-5">Thông tin khách hàng</th>
+                  <th class="px-6 py-5">Sản phẩm & SL</th>
+                  <th class="px-6 py-5">Thành tiền</th>
+                  <th class="px-6 py-5">Trạng thái</th>
+                  <th class="px-6 py-5 text-right">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="orderHistoryTable" class="text-sm"></tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/order/order_history.js"></script>
+  </body>
+</html>

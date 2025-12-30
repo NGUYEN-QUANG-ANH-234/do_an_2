@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Khởi tạo Đối tác Đại lý - Mina Rubber</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
+  </head>
+  <body class="bg-slate-50 min-h-screen flex text-slate-800">
+    <aside
+      id="sidebarContainer"
+      class="w-64 bg-slate-900 text-slate-300 flex-shrink-0 flex flex-col hidden lg:flex"
+    ></aside>
+
+    <main class="flex-1 flex flex-col h-screen overflow-hidden">
+      <header
+        class="h-16 bg-white shadow-sm border-b border-slate-200 px-8 flex items-center justify-between shrink-0 z-10"
+      >
+        <div class="flex items-center gap-4">
+          <button
+            onclick="history.back()"
+            class="text-slate-400 hover:text-blue-600 transition-colors"
+          >
+            <i class="fas fa-arrow-left"></i>
+          </button>
+          <h2
+            class="text-sm font-black text-slate-700 uppercase italic tracking-widest"
+          >
+            Hệ thống quản trị
+            <i class="fas fa-chevron-right text-[10px] mx-2 opacity-30"></i>
+            Khai báo đối tác
+          </h2>
+        </div>
+        <div id="headerUserContainer"></div>
+      </header>
+
+      <div class="flex-1 overflow-y-auto p-8 lg:p-12 custom-scrollbar">
+        <div class="max-w-4xl mx-auto">
+          <div class="mb-10">
+            <h1
+              class="text-4xl font-black text-slate-900 italic tracking-tighter"
+            >
+              Thiết lập Đại lý mới
+            </h1>
+            <p
+              class="text-slate-500 font-bold uppercase text-[10px] tracking-[0.3em] mt-2 flex items-center"
+            >
+              <span class="w-8 h-[2px] bg-blue-600 mr-3"></span> Cấp định danh &
+              Tài khoản hệ thống
+            </p>
+          </div>
+
+          <form id="createAgencyForm" class="space-y-8">
+            <div
+              class="form-card bg-white p-10 rounded-[40px] shadow-sm border border-slate-100"
+            >
+              <div class="flex items-center gap-3 mb-8">
+                <div
+                  class="w-10 h-10 bg-blue-600 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-blue-100"
+                >
+                  <i class="fas fa-id-card"></i>
+                </div>
+                <h3
+                  class="font-black text-slate-800 uppercase italic tracking-tight"
+                >
+                  1. Định danh & Tài khoản Portal
+                </h3>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                  <div>
+                    <label
+                      class="block text-[10px] font-black text-slate-400 uppercase mb-3 ml-1 tracking-widest"
+                      >Mã Đại lý (ID Duy nhất)</label
+                    >
+                    <input
+                      type="text"
+                      name="agency_id"
+                      required
+                      placeholder="Ví dụ: DL-HUNG-CUONG"
+                      class="w-full px-6 py-4 bg-slate-50 border-none rounded-[20px] font-bold text-sm outline-none focus:ring-2 focus:ring-blue-500 transition-all input-glow"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      class="block text-[10px] font-black text-slate-400 uppercase mb-3 ml-1 tracking-widest"
+                      >Tên doanh nghiệp đại lý</label
+                    >
+                    <input
+                      type="text"
+                      name="agency_name"
+                      required
+                      placeholder="Tên hiển thị trên hóa đơn..."
+                      class="w-full px-6 py-4 bg-slate-50 border-none rounded-[20px] font-bold text-sm outline-none focus:ring-2 focus:ring-blue-500 transition-all input-glow"
+                    />
+                  </div>
+                </div>
+
+                <div
+                  class="space-y-6 bg-slate-900 p-8 rounded-[32px] text-white"
+                >
+                  <div>
+                    <label
+                      class="block text-[10px] font-black text-slate-400 uppercase mb-3 ml-1 tracking-widest"
+                      >Tên đăng nhập (Username)</label
+                    >
+                    <input
+                      type="text"
+                      name="username"
+                      required
+                      placeholder="daily_01"
+                      class="w-full px-6 py-4 bg-white/10 border-none rounded-[20px] font-bold text-sm text-white outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                  </div>
+                  <div>
+                    <label
+                      class="block text-[10px] font-black text-slate-400 uppercase mb-3 ml-1 tracking-widest"
+                      >Mật khẩu khởi tạo</label
+                    >
+                    <input
+                      type="password"
+                      name="password"
+                      required
+                      value="123"
+                      class="w-full px-6 py-4 bg-white/10 border-none rounded-[20px] font-bold text-sm text-white outline-none focus:ring-2 focus:ring-blue-400"
+                    />
+                  </div>
+                  <p
+                    class="text-[9px] text-slate-500 font-bold italic uppercase mt-2"
+                  >
+                    * Mật khẩu mặc định hệ thống là 123
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="form-card bg-white p-10 rounded-[40px] shadow-sm border border-slate-100"
+            >
+              <div class="flex items-center gap-3 mb-8">
+                <div
+                  class="w-10 h-10 bg-emerald-500 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-100"
+                >
+                  <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <h3
+                  class="font-black text-slate-800 uppercase italic tracking-tight"
+                >
+                  2. Thông tin liên hệ & Định vị GPS
+                </h3>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="space-y-6">
+                  <div class="grid grid-cols-2 gap-4">
+                    <div>
+                      <label
+                        class="block text-[10px] font-black text-slate-400 uppercase mb-3 ml-1"
+                        >Người đại diện</label
+                      >
+                      <input
+                        type="text"
+                        name="contact_person"
+                        required
+                        placeholder="Ông/Bà..."
+                        class="w-full px-6 py-4 bg-slate-50 border-none rounded-[20px] font-bold text-sm outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        class="block text-[10px] font-black text-slate-400 uppercase mb-3 ml-1"
+                        >Số điện thoại</label
+                      >
+                      <input
+                        type="tel"
+                        name="contact_phone"
+                        required
+                        placeholder="090..."
+                        class="w-full px-6 py-4 bg-slate-50 border-none rounded-[20px] font-bold text-sm outline-none"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label
+                      class="block text-[10px] font-black text-slate-400 uppercase mb-3 ml-1"
+                      >Khu vực quản lý</label
+                    >
+                    <select
+                      name="region_name"
+                      class="w-full px-6 py-4 bg-slate-50 border-none rounded-[20px] font-bold text-sm outline-none appearance-none"
+                    >
+                      <option value="Miền Bắc">Khu vực Miền Bắc</option>
+                      <option value="Miền Trung">Khu vực Miền Trung</option>
+                      <option value="Miền Nam">Khu vực Miền Nam</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label
+                      class="block text-[10px] font-black text-slate-400 uppercase mb-3 ml-1"
+                      >Điều khoản công nợ</label
+                    >
+                    <input
+                      type="text"
+                      name="payment_term"
+                      value="30 ngày"
+                      class="w-full px-6 py-4 bg-slate-50 border-none rounded-[20px] font-bold text-sm outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div class="space-y-6">
+                  <div>
+                    <label
+                      class="block text-[10px] font-black text-slate-400 uppercase mb-3 ml-1"
+                      >Địa chỉ kho đại lý</label
+                    >
+                    <div class="flex gap-3">
+                      <input
+                        type="text"
+                        id="addressInput"
+                        name="address"
+                        required
+                        placeholder="Số nhà, tên đường, tỉnh thành..."
+                        class="flex-1 px-6 py-4 bg-slate-50 border-none rounded-[20px] font-bold text-sm outline-none focus:ring-2 focus:ring-emerald-500"
+                      />
+                      <button
+                        type="button"
+                        onclick="getGPS()"
+                        class="w-14 h-14 bg-emerald-500 text-white rounded-[20px] flex items-center justify-center shadow-lg shadow-emerald-100 hover:bg-slate-900 transition-all"
+                      >
+                        <i class="fas fa-location-crosshairs"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    class="grid grid-cols-2 gap-4 p-6 bg-slate-50 rounded-[32px] border border-dashed border-slate-200"
+                  >
+                    <div>
+                      <label
+                        class="block text-[8px] font-black text-slate-400 uppercase mb-2"
+                        >Vĩ độ (Latitude)</label
+                      >
+                      <input
+                        type="text"
+                        id="lat"
+                        name="lat"
+                        readonly
+                        placeholder="0.000000"
+                        class="bg-transparent text-sm font-mono font-black text-emerald-600 outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        class="block text-[8px] font-black text-slate-400 uppercase mb-2"
+                        >Kinh độ (Longitude)</label
+                      >
+                      <input
+                        type="text"
+                        id="lng"
+                        name="lng"
+                        readonly
+                        placeholder="0.000000"
+                        class="bg-transparent text-sm font-mono font-black text-emerald-600 outline-none"
+                      />
+                    </div>
+                  </div>
+                  <p
+                    class="text-[9px] text-slate-400 font-bold italic text-center uppercase tracking-widest"
+                  >
+                    * Tọa độ GPS dùng để mô phỏng hành trình xe tải
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex justify-end items-center gap-6 pt-6 pb-20">
+              <button
+                type="button"
+                onclick="history.back()"
+                class="text-xs font-black uppercase italic text-slate-400 hover:text-slate-600 transition-colors tracking-widest"
+              >
+                Hủy bỏ yêu cầu
+              </button>
+              <button
+                type="submit"
+                class="px-12 py-5 bg-blue-600 text-white rounded-[24px] font-black uppercase italic text-xs tracking-[0.2em] shadow-2xl shadow-blue-200 hover:bg-slate-900 hover:-translate-y-1 transition-all"
+              >
+                Xác nhận & Khởi tạo dữ liệu
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../js/main.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/modules/admin/admin_create_agency.js"></script>
+  </body>
+</html>

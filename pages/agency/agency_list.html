@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quản lý Đại lý - Mina Rubber</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
+  </head>
+  <body class="bg-slate-50 min-h-screen flex text-slate-800">
+    <aside
+      class="w-64 bg-slate-900 text-slate-300 flex-shrink-0 flex flex-col"
+    ></aside>
+
+    <main class="flex-1 flex flex-col">
+      <header
+        class="h-16 bg-white shadow-sm flex items-center justify-between px-8 relative z-10"
+      >
+        <h2
+          class="text-lg font-black text-slate-700 uppercase italic tracking-tighter"
+        >
+          Quản trị đối tác đại lý
+        </h2>
+        <div class="flex items-center space-x-6">
+          <div class="flex items-center gap-3 border-r pr-6">
+            <button
+              onclick="window.location.href='agency_history.html'"
+              class="w-10 h-10 flex items-center justify-center hover:bg-blue-50 text-blue-600 rounded-full transition-all"
+              title="Tra cứu lịch sử hợp đồng"
+            >
+              <i class="fas fa-history"></i>
+            </button>
+          </div>
+
+          <div id="headerUserContainer"></div>
+        </div>
+      </header>
+
+      <div class="p-8">
+        <div class="mb-8 flex justify-between items-end">
+          <div>
+            <h1 class="text-3xl font-black text-slate-800 italic">
+              Danh mục Đại lý
+            </h1>
+            <p
+              class="text-slate-500 text-sm mt-1 uppercase font-bold tracking-widest"
+            >
+              Quản lý mạng lưới và thông tin định vị đối tác
+            </p>
+          </div>
+          <div class="relative">
+            <i
+              class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs"
+            ></i>
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Tìm theo mã hoặc tên..."
+              class="pl-10 pr-5 py-2.5 bg-white border border-slate-200 rounded-2xl outline-none focus:ring-4 focus:ring-blue-500/10 text-sm italic w-72 transition-all"
+            />
+          </div>
+        </div>
+
+        <div
+          class="bg-white shadow-sm rounded-3xl overflow-hidden border border-slate-200"
+        >
+          <table class="w-full text-left">
+            <thead
+              class="bg-slate-50/50 text-slate-400 text-[10px] uppercase font-black tracking-widest border-b"
+            >
+              <tr>
+                <th class="px-8 py-5">Mã Đại lý</th>
+                <th class="px-8 py-5">Đại lý / Vị trí</th>
+                <th class="px-8 py-5">Người liên hệ</th>
+                <th class="px-8 py-5 text-center">Thời hạn thanh toán</th>
+                <th class="px-8 py-5 text-center">Trạng thái</th>
+                <th class="px-8 py-5 text-right">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody
+              id="agencyBody"
+              class="divide-y divide-slate-50 text-sm font-medium"
+            ></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <div
+      id="addAgencyModal"
+      class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[100] p-4"
+    >
+      <div
+        class="bg-white w-full max-w-lg rounded-3xl shadow-2xl p-8 overflow-y-auto max-h-[90vh] custom-scrollbar"
+      >
+        <div class="text-center mb-6">
+          <h3 class="text-xl font-black text-slate-800 uppercase italic">
+            Thêm đại lý mới
+          </h3>
+        </div>
+        <form id="addAgencyForm" class="space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label
+                class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-1"
+                >Mã ID</label
+              >
+              <input
+                type="text"
+                name="agency_id"
+                required
+                placeholder="DL-001"
+                class="w-full px-4 py-2 bg-slate-50 border rounded-xl font-bold text-sm outline-none focus:border-blue-500"
+              />
+            </div>
+            <div>
+              <label
+                class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-1"
+                >Username</label
+              >
+              <input
+                type="text"
+                name="username"
+                required
+                placeholder="user_agency"
+                class="w-full px-4 py-2 bg-slate-50 border rounded-xl font-bold text-sm outline-none focus:border-blue-500"
+              />
+            </div>
+          </div>
+          <div>
+            <label
+              class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-1"
+              >Tên đại lý</label
+            >
+            <input
+              type="text"
+              name="agency_name"
+              required
+              placeholder="Nhập tên doanh nghiệp đại lý"
+              class="w-full px-4 py-2 bg-slate-50 border rounded-xl font-bold text-sm outline-none focus:border-blue-500"
+            />
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 text-left">
+            <div>
+              <label
+                class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-1"
+                >Người liên hệ</label
+              >
+              <input
+                type="text"
+                name="contact_person"
+                required
+                placeholder="Tên đại diện"
+                class="w-full px-4 py-2 bg-slate-50 border rounded-xl font-bold text-sm outline-none focus:border-blue-500"
+              />
+            </div>
+            <div>
+              <label
+                class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-1"
+                >Số điện thoại</label
+              >
+              <input
+                type="tel"
+                name="contact_phone"
+                required
+                placeholder="090..."
+                class="w-full px-4 py-2 bg-slate-50 border rounded-xl font-bold text-sm outline-none focus:border-blue-500"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label
+              class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-1"
+              >Địa chỉ chi tiết</label
+            >
+            <div class="flex gap-2">
+              <input
+                type="text"
+                id="add_agency_address"
+                name="address"
+                required
+                placeholder="Số nhà, tên đường..."
+                class="flex-1 px-4 py-2 bg-slate-50 border rounded-xl font-bold text-sm outline-none focus:border-blue-500"
+              />
+              <button
+                type="button"
+                onclick="verifyAddress('add')"
+                class="bg-blue-100 text-blue-600 px-4 rounded-xl hover:bg-blue-600 hover:text-white transition-all shadow-sm shadow-blue-100"
+                title="Định vị"
+              >
+                <i class="fas fa-search-location"></i>
+              </button>
+            </div>
+          </div>
+          <div
+            class="grid grid-cols-2 gap-4 bg-slate-50 p-3 rounded-xl border border-dashed border-slate-200"
+          >
+            <div>
+              <label
+                class="block text-[8px] font-black text-slate-400 uppercase"
+                >Vĩ độ (Lat)</label
+              >
+              <input
+                type="text"
+                id="add_lat"
+                name="lat"
+                readonly
+                class="w-full bg-transparent text-xs font-mono font-bold outline-none text-blue-600"
+                placeholder="0.0000"
+              />
+            </div>
+            <div>
+              <label
+                class="block text-[8px] font-black text-slate-400 uppercase"
+                >Kinh độ (Lng)</label
+              >
+              <input
+                type="text"
+                id="add_lng"
+                name="lng"
+                readonly
+                class="w-full bg-transparent text-xs font-mono font-bold outline-none text-blue-600"
+                placeholder="0.0000"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label
+                class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-1"
+                >Khu vực</label
+              >
+              <select
+                name="region_name"
+                class="w-full px-4 py-2 bg-slate-50 border rounded-xl font-bold text-sm outline-none"
+              >
+                <option value="Miền Bắc">Miền Bắc</option>
+                <option value="Miền Trung">Miền Trung</option>
+                <option value="Miền Nam">Miền Nam</option>
+              </select>
+            </div>
+            <div>
+              <label
+                class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-1"
+                >Điều khoản thanh toán</label
+              >
+              <input
+                type="text"
+                name="payment_term"
+                required
+                placeholder="VD: 30 ngày"
+                class="w-full px-4 py-2 bg-slate-50 border rounded-xl font-bold text-sm outline-none"
+              />
+            </div>
+          </div>
+          <div class="flex justify-end space-x-3 pt-6 border-t mt-4">
+            <button
+              type="button"
+              onclick="toggleModal('addAgencyModal')"
+              class="px-6 py-3 text-slate-400 font-black uppercase text-[10px] tracking-widest hover:text-slate-600"
+            >
+              Hủy
+            </button>
+            <button
+              type="submit"
+              class="px-8 py-3 bg-blue-600 text-white rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-xl shadow-blue-100 hover:bg-blue-700 transition-all"
+            >
+              Lưu đại lý
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div
+      id="editAgencyModal"
+      class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[100] p-4"
+    >
+      <div
+        class="bg-white w-full max-w-lg rounded-3xl shadow-2xl p-8 overflow-y-auto max-h-[90vh] custom-scrollbar"
+      >
+        <h3
+          class="text-xl font-black text-slate-800 uppercase italic mb-6 text-center"
+        >
+          Cập nhật thông tin đại lý
+        </h3>
+        <form id="editAgencyForm" class="space-y-4">
+          <input type="hidden" id="edit_original_id" />
+          <input type="hidden" id="edit_lat" />
+          <input type="hidden" id="edit_lng" />
+
+          <div>
+            <label
+              class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-1"
+              >Mã Đại lý (ID)</label
+            >
+            <input
+              id="edit_agency_id"
+              type="text"
+              required
+              class="w-full px-4 py-2 bg-slate-100 border rounded-xl font-bold text-sm text-slate-500 cursor-not-allowed"
+              readonly
+            />
+          </div>
+          <div>
+            <label
+              class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-1"
+              >Tên đại lý</label
+            >
+            <input
+              id="edit_agency_name"
+              type="text"
+              required
+              class="w-full px-4 py-2 bg-slate-50 border rounded-xl font-bold text-sm outline-none"
+            />
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label
+                class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-1"
+                >Người liên hệ</label
+              >
+              <input
+                id="edit_contact_person"
+                type="text"
+                required
+                class="w-full px-4 py-2 bg-slate-50 border rounded-xl font-bold text-sm outline-none"
+              />
+            </div>
+            <div>
+              <label
+                class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-1"
+                >Số điện thoại</label
+              >
+              <input
+                id="edit_contact_phone"
+                type="tel"
+                required
+                class="w-full px-4 py-2 bg-slate-50 border rounded-xl font-bold text-sm outline-none"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label
+              class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-1"
+              >Địa chỉ</label
+            >
+            <div class="flex gap-2">
+              <input
+                id="edit_agency_address"
+                type="text"
+                required
+                class="flex-1 px-4 py-2 bg-slate-50 border rounded-xl font-bold text-sm outline-none"
+              />
+              <button
+                type="button"
+                onclick="verifyAddress('edit')"
+                class="bg-amber-100 text-amber-600 px-4 rounded-xl hover:bg-amber-500 hover:text-white transition-all shadow-sm"
+                title="Làm mới vị trí"
+              >
+                <i class="fas fa-sync-alt"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label
+                class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-1"
+                >Khu vực</label
+              >
+              <select
+                id="edit_region_name"
+                class="w-full px-4 py-2 bg-slate-50 border rounded-xl font-bold text-sm outline-none"
+              >
+                <option value="Miền Bắc">Miền Bắc</option>
+                <option value="Miền Trung">Miền Trung</option>
+                <option value="Miền Nam">Miền Nam</option>
+              </select>
+            </div>
+            <div>
+              <label
+                class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-1"
+                >Thanh toán</label
+              >
+              <input
+                id="edit_payment_term"
+                type="text"
+                required
+                class="w-full px-4 py-2 bg-slate-50 border rounded-xl font-bold text-sm outline-none"
+              />
+            </div>
+          </div>
+          <div class="flex justify-end space-x-3 pt-6 border-t mt-4">
+            <button
+              type="button"
+              onclick="toggleModal('editAgencyModal')"
+              class="px-6 py-3 text-slate-400 font-black uppercase text-[10px] tracking-widest hover:text-slate-600"
+            >
+              Hủy
+            </button>
+            <button
+              type="submit"
+              class="px-8 py-3 bg-amber-500 text-white rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-xl shadow-amber-100 hover:bg-amber-600 transition-all"
+            >
+              Cập nhật ngay
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div
+      id="contractModal"
+      class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-[100] p-4"
+    >
+      <div class="bg-white w-full max-w-md rounded-3xl shadow-2xl p-8">
+        <div class="text-center mb-6">
+          <div
+            class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <i class="fas fa-file-contract fa-2x"></i>
+          </div>
+          <h3 class="text-xl font-black text-slate-800 uppercase italic">
+            Ký kết hợp đồng
+          </h3>
+        </div>
+        <form id="contractForm" class="space-y-4">
+          <input type="hidden" id="contract_agency_id" name="agency_id" />
+          <div class="grid grid-cols-2 gap-2 text-left">
+            <div>
+              <label
+                class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-1"
+                >Ngày bắt đầu</label
+              >
+              <input
+                type="date"
+                name="start_date"
+                required
+                class="w-full px-4 py-2 bg-slate-50 border rounded-xl text-xs font-bold outline-none"
+              />
+            </div>
+            <div>
+              <label
+                class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-1"
+                >Ngày kết thúc</label
+              >
+              <input
+                type="date"
+                name="end_date"
+                required
+                class="w-full px-4 py-2 bg-slate-50 border rounded-xl text-xs font-bold outline-none"
+              />
+            </div>
+          </div>
+          <div class="text-left">
+            <label
+              class="block text-[10px] font-black text-slate-400 uppercase mb-1 ml-1"
+              >Trạng thái phê duyệt</label
+            >
+            <select
+              name="status"
+              class="w-full px-4 py-2 bg-slate-50 border rounded-xl font-bold text-sm outline-none"
+            >
+              <option value="Active">Kích hoạt (Active)</option>
+              <option value="Pending">Chờ duyệt (Pending)</option>
+            </select>
+          </div>
+          <div class="flex justify-end space-x-3 pt-6 border-t mt-4">
+            <button
+              type="button"
+              onclick="toggleModal('contractModal')"
+              class="px-6 py-3 text-slate-400 font-black uppercase text-[10px] tracking-widest"
+            >
+              Hủy
+            </button>
+            <button
+              type="submit"
+              class="px-8 py-3 bg-blue-600 text-white rounded-2xl font-black uppercase text-[10px] tracking-widest shadow-lg hover:bg-blue-700 transition-all"
+            >
+              Xác nhận ký
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/agency/agency_list.js"></script>
+  </body>
+</html>

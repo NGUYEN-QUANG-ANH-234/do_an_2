@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Xử Lý Xuất Kho - Mina Rubber</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap");
+      body {
+        font-family: "Inter", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-50 text-slate-800">
+    <div class="flex min-h-screen">
+      <aside
+        id="sidebar"
+        class="w-64 bg-slate-900 text-slate-300 flex-shrink-0"
+      ></aside>
+
+      <main class="flex-1 flex flex-col">
+        <header
+          class="h-16 bg-white shadow-sm flex items-center justify-between px-8 relative z-10"
+        >
+          <h2
+            class="text-lg font-black text-slate-700 uppercase italic tracking-tighter"
+          >
+            Hệ Thống Xử Lý Xuất Kho
+          </h2>
+          <div id="headerUserContainer"></div>
+        </header>
+
+        <div class="p-8 max-w-6xl mx-auto w-full">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 space-y-6">
+              <div
+                class="bg-white rounded-[2rem] shadow-sm border border-slate-100 p-8 transition-all"
+              >
+                <div class="flex items-center gap-4 mb-8 border-b pb-6">
+                  <div
+                    class="w-12 h-12 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center"
+                  >
+                    <i class="fas fa-file-export fa-lg"></i>
+                  </div>
+                  <div>
+                    <h3 class="font-black text-slate-700 uppercase italic">
+                      Lập Phiếu Xuất Kho
+                    </h3>
+                    <p
+                      class="text-[10px] text-slate-400 font-bold uppercase tracking-widest"
+                    >
+                      Khởi tạo vận đơn & Trừ tồn kho thực tế
+                    </p>
+                  </div>
+                </div>
+
+                <div class="space-y-6">
+                  <div>
+                    <label
+                      class="block text-[10px] font-black uppercase text-slate-400 mb-2 ml-1 tracking-widest"
+                    >
+                      1. Chọn mã đơn hàng chờ xử lý
+                    </label>
+                    <select
+                      id="orderSelect"
+                      class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 font-bold focus:ring-4 focus:ring-red-500/10 outline-none transition-all appearance-none cursor-pointer"
+                    >
+                      <option value="">
+                        -- Danh sách đơn hàng sẵn sàng xuất kho --
+                      </option>
+                    </select>
+                  </div>
+
+                  <div
+                    id="orderDetailCard"
+                    class="hidden space-y-4 animate-in fade-in slide-in-from-top-4 duration-500"
+                  >
+                    <div
+                      class="bg-slate-900 rounded-[1.5rem] p-6 text-white grid grid-cols-2 gap-6 relative overflow-hidden"
+                    >
+                      <i
+                        class="fas fa-box-open absolute -right-4 -bottom-4 text-white/5 text-7xl"
+                      ></i>
+                      <div>
+                        <p
+                          class="text-[10px] font-black uppercase text-slate-400 mb-1"
+                        >
+                          Sản phẩm yêu cầu
+                        </p>
+                        <p
+                          id="displayProduct"
+                          class="font-black text-lg italic uppercase leading-tight"
+                        ></p>
+                      </div>
+                      <div class="text-right">
+                        <p
+                          class="text-[10px] font-black uppercase text-slate-400 mb-1"
+                        >
+                          Số lượng
+                        </p>
+                        <p
+                          id="displayQty"
+                          class="text-3xl font-black text-red-500 italic font-mono tracking-tighter"
+                        ></p>
+                      </div>
+                    </div>
+
+                    <div
+                      class="bg-red-50/50 border border-red-100 rounded-[1.5rem] p-6 grid grid-cols-1 md:grid-cols-2 gap-6"
+                    >
+                      <div>
+                        <p
+                          class="text-[10px] font-black uppercase text-red-400 mb-2 tracking-widest"
+                        >
+                          Đại lý nhận hàng
+                        </p>
+                        <p
+                          id="displayAgency"
+                          class="font-black text-slate-800 uppercase italic"
+                        ></p>
+                        <p
+                          id="displayAddress"
+                          class="text-xs text-slate-500 mt-1 font-medium italic"
+                        ></p>
+                      </div>
+                      <div class="border-l border-red-100 pl-6">
+                        <p
+                          class="text-[10px] font-black uppercase text-red-400 mb-2 tracking-widest"
+                        >
+                          Liên hệ & Định vị
+                        </p>
+                        <div class="space-y-1">
+                          <p class="text-sm font-bold text-slate-700">
+                            <i class="fas fa-user-circle mr-2 text-red-300"></i
+                            ><span id="displayContact">---</span>
+                          </p>
+                          <p class="text-sm font-bold text-slate-700">
+                            <i class="fas fa-phone-alt mr-2 text-red-300"></i
+                            ><span id="displayPhone">---</span>
+                          </p>
+                          <p
+                            class="text-[10px] font-mono text-blue-600 mt-2 bg-white px-2 py-1 rounded-lg border border-red-100 w-fit"
+                          >
+                            <i class="fas fa-map-marker-alt mr-1"></i>GPS:
+                            <span id="displayGPS">---</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="bg-white border border-slate-100 rounded-[1.5rem] p-6 flex justify-between items-center shadow-sm"
+                    >
+                      <div>
+                        <p
+                          class="text-[10px] font-black uppercase text-slate-400 mb-1"
+                        >
+                          Trạng thái kho thực tế
+                        </p>
+                        <p class="text-xs font-bold text-slate-600 italic">
+                          Khả dụng:
+                          <span
+                            id="displayStock"
+                            class="text-lg ml-2 font-black"
+                            >--</span
+                          >
+                        </p>
+                      </div>
+                      <div id="stockStatusBadge"></div>
+                    </div>
+
+                    <button
+                      id="btnConfirmExport"
+                      disabled
+                      class="w-full py-5 bg-slate-200 text-slate-400 rounded-2xl font-black uppercase italic tracking-widest transition-all shadow-xl shadow-red-100/50"
+                    >
+                      Xác nhận xuất kho & Bàn giao tài xế
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-6">
+              <div
+                class="bg-white rounded-[2rem] shadow-sm border border-slate-100 p-8 h-fit"
+              >
+                <div class="flex items-center gap-3 mb-6">
+                  <i class="fas fa-history text-slate-400 text-xs"></i>
+                  <h3
+                    class="font-black text-slate-700 uppercase italic text-sm tracking-tighter"
+                  >
+                    Vừa xuất kho
+                  </h3>
+                </div>
+                <div
+                  id="recentExportList"
+                  class="space-y-4 custom-scrollbar max-h-[500px] overflow-y-auto pr-2"
+                ></div>
+              </div>
+
+              <div
+                class="bg-blue-600 rounded-[2rem] p-8 text-white relative overflow-hidden group"
+              >
+                <i
+                  class="fas fa-truck absolute -right-4 -bottom-4 text-white/10 text-8xl group-hover:rotate-12 transition-transform duration-500"
+                ></i>
+                <h4 class="font-black italic uppercase text-sm mb-2">
+                  Lưu ý Vận chuyển
+                </h4>
+                <p
+                  class="text-[11px] text-blue-100 font-medium leading-relaxed italic"
+                >
+                  Đảm bảo tài xế đã quét mã đơn hàng và xác nhận tọa độ đích
+                  trên bản đồ trước khi xe rời bãi.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/warehouse/warehouse_export.js"></script>
+  </body>
+</html>
