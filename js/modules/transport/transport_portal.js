@@ -224,7 +224,10 @@ function dispatchOrder(orderId) {
 // Các hàm bổ trợ (initTransportPortal, updateTransportStats, recordTransportActivity, showToast) giữ nguyên...
 function initTransportPortal() {
   const user = JSON.parse(localStorage.getItem("mina_user"));
-  if (!user || !["ADMIN", "WAREHOUSE", "MANAGER"].includes(user.role)) {
+  if (
+    !user ||
+    !["ADMIN", "WAREHOUSE", "MANAGER", "TRANSPORT"].includes(user.role)
+  ) {
     alert("Bạn không có quyền truy cập trung tâm điều phối vận tải!");
     window.location.href = "../order/order_portal.html";
     return;

@@ -19,50 +19,7 @@
 
     <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
 
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap");
-      body {
-        font-family: "Inter", sans-serif;
-      }
-      .custom-scrollbar::-webkit-scrollbar {
-        width: 4px;
-      }
-      .custom-scrollbar::-webkit-scrollbar-track {
-        background: #f1f1f1;
-      }
-      .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: #e2e8f0;
-        border-radius: 10px;
-      }
-
-      /* Đảm bảo bản đồ luôn chiếm trọn không gian và nổi bật */
-      #checkinMap {
-        height: 100%;
-        width: 100%;
-        z-index: 1;
-        background: #f8fafc;
-      }
-
-      /* Hiệu ứng pulsing cho Marker Xe tải di chuyển */
-      .truck-marker-pulse {
-        animation: marker-pulse 2s infinite;
-      }
-
-      @keyframes marker-pulse {
-        0% {
-          transform: scale(1);
-          opacity: 1;
-        }
-        50% {
-          transform: scale(1.1);
-          opacity: 0.8;
-        }
-        100% {
-          transform: scale(1);
-          opacity: 1;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="../../css/input.css" />
   </head>
   <body class="bg-slate-50 min-h-screen flex custom-scrollbar">
     <aside

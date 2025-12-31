@@ -31,7 +31,7 @@ const SYSTEM_ACCOUNTS = [
   {
     username: "vanchuyen01",
     password: "123",
-    role: "SHIPPING",
+    role: "TRANSPORT",
     id: "STAFF-04",
     name: "Vận chuyển nội bộ",
     redirect: "../transport/transport_portal.html",

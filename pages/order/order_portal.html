@@ -10,12 +10,8 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
     <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap");
-      body {
-        font-family: "Inter", sans-serif;
-      }
-    </style>
+
+    <link rel="stylesheet" href="../../css/input.css" />
   </head>
   <body class="bg-slate-50 text-slate-800">
     <div class="flex min-h-screen">
@@ -199,16 +195,16 @@
               >
             </div>
             <div class="overflow-x-auto">
-              <table class="w-full text-left">
+              <table class="w-full text-left border-collapse">
                 <thead class="bg-slate-50/50">
                   <tr
-                    class="text-[10px] font-black uppercase text-slate-400 border-b border-slate-50"
+                    class="text-[10px] font-black uppercase text-slate-400 border-b border-slate-100 tracking-widest"
                   >
-                    <th class="px-6 py-4">Mã đơn</th>
-                    <th class="px-6 py-4">Sản phẩm</th>
-                    <th class="px-6 py-4">Khách hàng</th>
-                    <th class="px-6 py-4">Trạng thái</th>
-                    <th class="px-6 py-4 text-right">Ngày tạo</th>
+                    <th class="px-6 py-4">Mã đơn & Thời gian</th>
+                    <th class="px-6 py-4">Thông tin chi tiết</th>
+                    <th class="px-6 py-4 text-center">Trạng thái</th>
+                    <th class="px-6 py-4 text-right">Tổng giá trị</th>
+                    <th class="px-6 py-4 text-right">Hành động</th>
                   </tr>
                 </thead>
                 <tbody id="recentOrdersTable"></tbody>

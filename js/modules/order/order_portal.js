@@ -136,7 +136,7 @@ function renderOrderTable(dataList, role) {
                         } mr-1 opacity-50"></i>
                         ${
                           role === "AGENCY"
-                            ? `SL: ${order.quantity}kg`
+                            ? `SL: ${order.quantity} cái`
                             : order.deliveryAddress
                         }
                     </div>

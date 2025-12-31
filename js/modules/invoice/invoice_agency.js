@@ -178,7 +178,7 @@ function openInvoiceModal(orderId) {
                             <td class="py-5 font-black uppercase">${
                               order.productName
                             }</td>
-                            <td class="py-5 text-center">${quantity} kg</td>
+                            <td class="py-5 text-center">${quantity} cái</td>
                             <td class="py-5 text-right">${realPrice.toLocaleString()} đ</td>
                             <td class="py-5 text-right font-black text-slate-800">${subTotal.toLocaleString()} đ</td>
                         </tr>

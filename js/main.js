@@ -151,7 +151,7 @@ function authorizeUI() {
       AGENCY: "Đối tác Đại lý",
       MANAGER: "Quản lý doanh nghiệp",
       WAREHOUSE: "Quản lý Kho hàng",
-      SHIPPING: "Vận chuyển nội bộ",
+      TRANSPORT: "Vận chuyển nội bộ",
       ACCOUNTANT: "Kế toán tổng hợp",
     };
 

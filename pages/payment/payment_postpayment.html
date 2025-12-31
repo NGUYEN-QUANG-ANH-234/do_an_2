@@ -12,43 +12,7 @@
     />
     <link rel="icon" href="../../assets/img/123.ico" type="image/png" />
 
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&display=swap");
-      body {
-        font-family: "Inter", sans-serif;
-      }
-
-      .custom-scrollbar::-webkit-scrollbar {
-        width: 4px;
-      }
-      .custom-scrollbar::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
-        border-radius: 10px;
-      }
-
-      .debt-card {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      .debt-card:hover {
-        transform: translateY(-5px);
-      }
-
-      /* Hiệu ứng nhấp nháy cho đơn hàng quá hạn */
-      .pulse-red {
-        animation: pulse-red 2s infinite;
-      }
-      @keyframes pulse-red {
-        0% {
-          box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
-        }
-        70% {
-          box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
-        }
-        100% {
-          box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="../../css/input.css" />
   </head>
   <body class="bg-slate-50 min-h-screen flex custom-scrollbar">
     <aside

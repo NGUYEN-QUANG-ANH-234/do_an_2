@@ -1,0 +1,272 @@
+/* ============================================================
+   MINA RUBBER - GLOBAL STYLESHEET (input.css)
+   Mục tiêu: Gọi Font Online & Đồng nhất Hiệu ứng
+   ============================================================ */
+
+/* 1. GỌI FONT CHỮ ONLINE TỪ GOOGLE FONTS */
+/* Ta lấy các biến thể: 400 (Regular), 700 (Bold), và 900 Italic (Black Italic) */
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,700;1,900&display=swap");
+
+/* 2. CẤU HÌNH CƠ BẢN (Reset & Global) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased;
+    /* Chỉ định font Inter đã gọi online làm mặc định */
+    font-family: "Inter", sans-serif !important;
+  }
+}
+
+/* 3. ĐỒNG NHẤT CÁC THÀNH PHẦN NỘI DUNG (UI Components) */
+@layer components {
+  /* Hiệu ứng Glassmorphism cho Card */
+  .glass-card {
+    @apply bg-white/90 backdrop-blur-md border border-white/20 shadow-xl;
+  }
+
+  /* Định dạng bảng dữ liệu đồng nhất */
+  .mina-table-container {
+    @apply bg-white rounded-[40px] shadow-sm border border-slate-100 overflow-hidden;
+  }
+
+  .mina-table-thead {
+    @apply bg-slate-50/50 text-[10px] font-black uppercase text-slate-400 tracking-widest border-b border-slate-50;
+  }
+
+  /* Hiệu ứng dòng trong bảng (user-row, order-row) */
+  .row-hover-effect {
+    @apply transition-all duration-200 border-l-4 border-transparent hover:border-rose-600 hover:bg-rose-50/30;
+  }
+
+  /* Các Badge trạng thái đồng nhất */
+  .badge-base {
+    @apply px-3 py-1 rounded-lg text-[9px] font-black uppercase italic border shadow-sm;
+  }
+}
+
+/* 4. HIỆU ỨNG TRÊN TẤT CẢ CÁC TRANG (Animations) */
+@layer utilities {
+  /* Hiệu ứng xuất hiện mượt mà khi nạp trang */
+  .animate-fade-in {
+    animation: fadeIn 0.4s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Hiệu ứng mạch đập cảnh báo nợ quá hạn (Scenario 5.3) */
+  .animate-pulse-red {
+    animation: pulseRed 2s infinite;
+  }
+
+  @keyframes pulseRed {
+    0% {
+      box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(225, 29, 72, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(225, 29, 72, 0);
+    }
+  }
+
+  /* Tùy chỉnh thanh cuộn đồng nhất */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-slate-100;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-slate-300 rounded-full hover:bg-slate-400 transition-colors;
+  }
+}
+
+/* 5. ĐỒNG NHẤT TYPOGRAPHY MẠNH MẼ (Branding) */
+.font-mina-title {
+  /* Sử dụng trọng số 900 và kiểu nghiêng từ font online */
+  font-family: "Inter", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+  @apply uppercase tracking-tighter leading-none;
+}
+
+.font-mina-subtitle {
+  @apply text-[10px] font-bold uppercase tracking-[0.2em] italic;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+.user-row {
+  transition: all 0.2s ease;
+  border-left: 4px solid transparent;
+}
+.user-row:hover {
+  border-left-color: #e11d48;
+  background-color: #fff1f2;
+}
+
+.dest-label {
+  background: #2563eb;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: bold;
+  white-space: nowrap;
+  border: 2px solid white;
+}
+
+/* finance */
+.finance-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.finance-card:hover {
+  transform: translateY(-5px);
+}
+
+/* INVOICE */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .invoice-container {
+    box-shadow: none !important;
+    border: 1px solid #e2e8f0 !important;
+    width: 100% !important;
+    margin: 0 !important;
+  }
+}
+
+/* Lớp phủ Modal để xem chi tiết */
+#invoiceModal.active {
+  display: flex;
+}
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* PAYMENT */
+/* Các Card số liệu */
+.stat-card {
+  transition: all 0.3s ease;
+}
+.stat-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Hiệu ứng dòng giao dịch */
+.history-row {
+  transition: all 0.2s ease;
+  border-left: 4px solid transparent;
+}
+.history-row:hover {
+  border-left-color: #4f46e5;
+  background-color: #f8fafc;
+}
+
+.payment-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.payment-card:hover {
+  transform: translateY(-5px);
+}
+
+.debt-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.debt-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Hiệu ứng nhấp nháy cho đơn hàng quá hạn */
+.pulse-red {
+  animation: pulse-red 2s infinite;
+}
+@keyframes pulse-red {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
+.wallet-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.wallet-card:hover {
+  transform: translateY(-5px);
+}
+
+/* TRANSPORT */
+/* Đảm bảo bản đồ luôn chiếm trọn không gian và nổi bật */
+#checkinMap {
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  background: #f8fafc;
+}
+
+/* Hiệu ứng pulsing cho Marker Xe tải di chuyển */
+.truck-marker-pulse {
+  animation: marker-pulse 2s infinite;
+}
+
+@keyframes marker-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.highlight-new-task {
+  background-color: #f0f7ff !important;
+  animation: pulse-blue 2s infinite;
+}
+@keyframes pulse-blue {
+  0% {
+    border-left-color: #2563eb;
+  }
+  50% {
+    border-left-color: #dbeafe;
+  }
+  100% {
+    border-left-color: #2563eb;
+  }
+}
